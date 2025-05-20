@@ -1,0 +1,155 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_rdkit_complexity",
+      "description": "Returns the Bertz molecular complexity index of the molecule.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smiles": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smiles"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_rdkit_number_of_atoms",
+      "description": "Returns the number of atoms in the molecule.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smiles": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smiles"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_rdkit_number_of_bonds",
+      "description": "Returns the number of bonds in the molecule.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smiles": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smiles"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_rdkit_rotatable_bond_count",
+      "description": "Returns the number of rotatable bonds in the molecule.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smiles": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smiles"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_rdkit_h_bond_donor_count",
+      "description": "Returns the number of hydrogen bond donors in the molecule.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smiles": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smiles"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_rdkit_h_bond_acceptor_count",
+      "description": "Returns the number of hydrogen bond acceptors in the molecule.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smiles": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smiles"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_rdkit_molecular_formula",
+      "description": "Returns the molecular formula of the molecule.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smiles": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smiles"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_rdkit_canonical_smiles",
+      "description": "Returns the canonical SMILES of the molecule.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smiles": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smiles"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_rdkit_inchi",
+      "description": "Returns the InChI string of the molecule.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smiles": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smiles"]
+      }
+    }
+  }
+]

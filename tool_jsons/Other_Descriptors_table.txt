@@ -1,0 +1,42 @@
+
+    \begin{longtable}{|l|p{0.76\textwidth}|}
+    \hline
+    \textbf{Function} & \textbf{Description} \\
+    \hline
+    \texttt{smi2mol\_with\_errors} & Attempts to parse SMILES and returns validation status with error/warning messages. \\
+\hline
+\texttt{calcmolformula} & returns the molecule 2019s formula C++ signature : std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > CalcMolFormula(RDKit::ROMol [,bool=False [,bool=True]]) \\
+\hline
+\texttt{calccrippendescriptors} & returns a 2-tuple with the Wildman-Crippen logp,mr values C++ signature : boost::python::tuple CalcCrippenDescriptors(RDKit::ROMol [,bool=True [,bool=False]]) \\
+\hline
+\texttt{calcfractioncsp3} & returns the fraction of C atoms that are SP3 hybridized C++ signature : double CalcFractionCSP3(RDKit::ROMol) \\
+\hline
+\texttt{calckappa1} & C++ signature : double CalcKappa1(RDKit::ROMol) \\
+\hline
+\texttt{calckappa2} & C++ signature : double CalcKappa2(RDKit::ROMol) \\
+\hline
+\texttt{calckappa3} & C++ signature : double CalcKappa3(RDKit::ROMol) \\
+\hline
+\texttt{calclabuteasa} & returns the Labute ASA value for a molecule C++ signature : double CalcLabuteASA(RDKit::ROMol [,bool=True [,bool=False]]) \\
+\hline
+\texttt{calcpbf} & Returns the PBF (plane of best fit) descriptor ( https://doi.org/10.1021/ci300293f ) C++ signature : double CalcPBF(RDKit::ROMol [,int=-1]) \\
+\hline
+\texttt{calcphi} & C++ signature : double CalcPhi(RDKit::ROMol) \\
+\hline
+\texttt{getconnectivityinvariants} & Returns connectivity invariants (ECFP-like) for a molecule. C++ signature : boost::python::list GetConnectivityInvariants(RDKit::ROMol [,bool=True]) \\
+\hline
+\texttt{getfeatureinvariants} & Returns feature invariants (FCFP-like) for a molecule. C++ signature : boost::python::list GetFeatureInvariants(RDKit::ROMol) \\
+\hline
+\texttt{mqns\_} & C++ signature : boost::python::list MQNs_(RDKit::ROMol [,bool=False]) \\
+\hline
+\texttt{peoe\_vsa\_} & C++ signature : boost::python::list PEOE_VSA_(RDKit::ROMol [,boost::python::api::object=[] [,bool=False]]) \\
+\hline
+\texttt{smr\_vsa\_} & C++ signature : boost::python::list SMR_VSA_(RDKit::ROMol [,boost::python::api::object=[] [,bool=False]]) \\
+\hline
+\texttt{slogp\_vsa\_} & C++ signature : boost::python::list SlogP_VSA_(RDKit::ROMol [,boost::python::api::object=[] [,bool=False]]) \\
+\hline
+
+    \caption{List of Other Descriptors tools}
+    \label{tab:Other_Descriptors}
+    \end{longtable}
+    

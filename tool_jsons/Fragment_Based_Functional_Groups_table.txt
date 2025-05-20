@@ -1,0 +1,190 @@
+
+    \begin{longtable}{|l|p{0.76\textwidth}|}
+    \hline
+    \textbf{Function} & \textbf{Description} \\
+    \hline
+    \texttt{get\_min\_ring\_frequency} & Return the least frequent known ring system in the molecule with its frequency. \\
+\hline
+\texttt{remove\_stereo\_from\_smiles} & Removes stereochemistry from SMILES and returns canonical SMILES and InChI Key. \\
+\hline
+\texttt{get\_spiro\_atoms} & Returns atom indices that are shared between two rings (spiro atoms). \\
+\hline
+\texttt{max\_ring\_size} & Returns the size of the largest ring in the molecule. \\
+\hline
+\texttt{ring\_stats} & Returns the number of rings and the size of the largest ring in the molecule. \\
+\hline
+\texttt{count\_fragments} & Returns the number of molecular fragments present in the SMILES. \\
+\hline
+\texttt{get\_largest\_fragment} & Returns the SMILES of the largest fragment by atom count in a molecule. \\
+\hline
+\texttt{fr\_phos\_acid} & Number of phosphoric acid groups \\
+\hline
+\texttt{fr\_Al\_COO} & Number of aliphatic carboxylic acids \\
+\hline
+\texttt{fr\_Al\_OH} & Number of aliphatic hydroxyl groups \\
+\hline
+\texttt{fr\_Al\_OH\_noTert} & Number of aliphatic hydroxyl groups excluding tert-OH \\
+\hline
+\texttt{fr\_ArN} & Number of N functional groups attached to aromatics \\
+\hline
+\texttt{fr\_Ar\_COO} & Number of Aromatic carboxylic acid \\
+\hline
+\texttt{fr\_Ar\_N} & Number of aromatic nitrogens \\
+\hline
+\texttt{fr\_Ar\_NH} & Number of aromatic amines \\
+\hline
+\texttt{fr\_Ar\_OH} & Number of aromatic hydroxyl groups \\
+\hline
+\texttt{fr\_COO} & Number of carboxylic acids \\
+\hline
+\texttt{fr\_COO2} & Number of carboxylic acids \\
+\hline
+\texttt{fr\_C\_O} & Number of carbonyl O \\
+\hline
+\texttt{fr\_C\_O\_noCOO} & Number of carbonyl O, excluding COOH \\
+\hline
+\texttt{fr\_C\_S} & Number of thiocarbonyl \\
+\hline
+\texttt{fr\_HOCCN} & Number of C(OH)CCN-Ctert-alkyl or C(OH)CCNcyclic \\
+\hline
+\texttt{fr\_Imine} & Number of Imines \\
+\hline
+\texttt{fr\_NH0} & Number of Tertiary amines \\
+\hline
+\texttt{fr\_NH1} & Number of Secondary amines \\
+\hline
+\texttt{fr\_NH2} & Number of Primary amines \\
+\hline
+\texttt{fr\_N\_O} & Number of hydroxylamine groups \\
+\hline
+\texttt{fr\_Nhpyrrole} & Number of H-pyrrole nitrogens \\
+\hline
+\texttt{fr\_SH} & Number of thiol groups \\
+\hline
+\texttt{fr\_aldehyde} & Number of aldehydes \\
+\hline
+\texttt{fr\_alkyl\_carbamate} & Number of alkyl carbamates (subject to hydrolysis) \\
+\hline
+\texttt{fr\_alkyl\_halide} & Number of alkyl halides \\
+\hline
+\texttt{fr\_allylic\_oxid} & Number of allylic oxidation sites excluding steroid dienone \\
+\hline
+\texttt{fr\_amide} & Number of amides \\
+\hline
+\texttt{fr\_amidine} & Number of amidine groups \\
+\hline
+\texttt{fr\_aniline} & Number of anilines \\
+\hline
+\texttt{fr\_aryl\_methyl} & Number of aryl methyl sites for hydroxylation \\
+\hline
+\texttt{fr\_azide} & Number of azide groups \\
+\hline
+\texttt{fr\_azo} & Number of azo groups \\
+\hline
+\texttt{fr\_barbitur} & Number of barbiturate groups \\
+\hline
+\texttt{fr\_benzene} & Number of benzene rings \\
+\hline
+\texttt{fr\_benzodiazepine} & Number of benzodiazepines with no additional fused rings \\
+\hline
+\texttt{fr\_bicyclic} & Bicyclic \\
+\hline
+\texttt{fr\_diazo} & Number of diazo groups \\
+\hline
+\texttt{fr\_dihydropyridine} & Number of dihydropyridines \\
+\hline
+\texttt{fr\_epoxide} & Number of epoxide rings \\
+\hline
+\texttt{fr\_ester} & Number of esters \\
+\hline
+\texttt{fr\_ether} & Number of ether oxygens (including phenoxy) \\
+\hline
+\texttt{fr\_furan} & Number of furan rings \\
+\hline
+\texttt{fr\_guanido} & Number of guanidine groups \\
+\hline
+\texttt{fr\_halogen} & Number of halogens \\
+\hline
+\texttt{fr\_hdrzine} & Number of hydrazine groups \\
+\hline
+\texttt{fr\_hdrzone} & Number of hydrazone groups \\
+\hline
+\texttt{fr\_imidazole} & Number of imidazole rings \\
+\hline
+\texttt{fr\_imide} & Number of imide groups \\
+\hline
+\texttt{fr\_isocyan} & Number of isocyanates \\
+\hline
+\texttt{fr\_isothiocyan} & Number of isothiocyanates \\
+\hline
+\texttt{fr\_ketone} & Number of ketones \\
+\hline
+\texttt{fr\_ketone\_Topliss} & Number of ketones excluding diaryl, a,b-unsat. dienones, heteroatom on Calpha \\
+\hline
+\texttt{fr\_lactam} & Number of beta lactams \\
+\hline
+\texttt{fr\_lactone} & Number of cyclic esters (lactones) \\
+\hline
+\texttt{fr\_methoxy} & Number of methoxy groups -OCH3 \\
+\hline
+\texttt{fr\_morpholine} & Number of morpholine rings \\
+\hline
+\texttt{fr\_nitrile} & Number of nitriles \\
+\hline
+\texttt{fr\_nitro} & Number of nitro groups \\
+\hline
+\texttt{fr\_nitro\_arom} & Number of nitro benzene ring substituents \\
+\hline
+\texttt{fr\_nitro\_arom\_nonortho} & Number of non-ortho nitro benzene ring substituents \\
+\hline
+\texttt{fr\_nitroso} & Number of nitroso groups, excluding NO2 \\
+\hline
+\texttt{fr\_oxazole} & Number of oxazole rings \\
+\hline
+\texttt{fr\_oxime} & Number of oxime groups \\
+\hline
+\texttt{fr\_para\_hydroxylation} & Number of para-hydroxylation sites \\
+\hline
+\texttt{fr\_phenol} & Number of phenols \\
+\hline
+\texttt{fr\_phenol\_noOrthoHbond} & Number of phenolic OH excluding ortho intramolecular Hbond substituents \\
+\hline
+\texttt{fr\_phos\_ester} & Number of phosphoric ester groups \\
+\hline
+\texttt{fr\_piperdine} & Number of piperdine rings \\
+\hline
+\texttt{fr\_piperzine} & Number of piperzine rings \\
+\hline
+\texttt{fr\_priamide} & Number of primary amides \\
+\hline
+\texttt{fr\_prisulfonamd} & Number of primary sulfonamides \\
+\hline
+\texttt{fr\_pyridine} & Number of pyridine rings \\
+\hline
+\texttt{fr\_quatN} & Number of quaternary nitrogens \\
+\hline
+\texttt{fr\_sulfide} & Number of thioether \\
+\hline
+\texttt{fr\_sulfonamd} & Number of sulfonamides \\
+\hline
+\texttt{fr\_sulfone} & Number of sulfone groups \\
+\hline
+\texttt{fr\_term\_acetylene} & Number of terminal acetylenes \\
+\hline
+\texttt{fr\_tetrazole} & Number of tetrazole rings \\
+\hline
+\texttt{fr\_thiazole} & Number of thiazole rings \\
+\hline
+\texttt{fr\_thiocyan} & Number of thiocyanates \\
+\hline
+\texttt{fr\_thiophene} & Number of thiophene rings \\
+\hline
+\texttt{fr\_unbrch\_alkane} & Number of unbranched alkanes of at least 4 members (excludes halogenated alkanes) \\
+\hline
+\texttt{fr\_urea} & Number of urea groups \\
+\hline
+
+    \caption{List of Fragment Based Functional Groups tools}
+    \label{tab:Fragment_Based_Functional_Groups}
+    \end{longtable}
+    

@@ -1,0 +1,522 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_center",
+      "description": "Computes the geometric center of a conformer generated from the input SMILES.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smi": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smi"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_shape_moments",
+      "description": "Calculates NPR1 and NPR2 shape descriptors from a generated conformer.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smi": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smi"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "refine_conformers",
+      "description": "Refines 3D conformers based on energy and RMSD thresholds.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smi": {
+            "type": "string",
+            "description": "Input SMILES string"
+          },
+          "energy_threshold": {
+            "type": "number",
+            "default": 50.0,
+            "description": "Energy threshold in kcal/mol to filter conformers"
+          },
+          "rms_threshold": {
+            "type": "number",
+            "default": 0.5,
+            "description": "RMS threshold in angstroms to filter similar conformers"
+          }
+        },
+        "required": ["smi"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_conformer_energies",
+      "description": "Returns the energies of multiple conformers generated from the input molecule.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smi": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smi"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumaliphaticcarbocycles",
+      "description": "returns the number of aliphatic (containing at least one non-aromatic bond) carbocycles for a molecule C++ signature : unsigned int CalcNumAliphaticCarbocycles(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumaliphaticheterocycles",
+      "description": "returns the number of aliphatic (containing at least one non-aromatic bond) heterocycles for a molecule C++ signature : unsigned int CalcNumAliphaticHeterocycles(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumaliphaticrings",
+      "description": "returns the number of aliphatic (containing at least one non-aromatic bond) rings for a molecule C++ signature : unsigned int CalcNumAliphaticRings(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumamidebonds",
+      "description": "returns the number of amide bonds in a molecule C++ signature : unsigned int CalcNumAmideBonds(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumaromaticcarbocycles",
+      "description": "returns the number of aromatic carbocycles for a molecule C++ signature : unsigned int CalcNumAromaticCarbocycles(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumaromaticheterocycles",
+      "description": "returns the number of aromatic heterocycles for a molecule C++ signature : unsigned int CalcNumAromaticHeterocycles(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumaromaticrings",
+      "description": "returns the number of aromatic rings for a molecule C++ signature : unsigned int CalcNumAromaticRings(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumatomstereocenters",
+      "description": "Returns the total number of atomic stereocenters (specified and unspecified) C++ signature : unsigned int CalcNumAtomStereoCenters(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumatoms",
+      "description": "returns the total number of atoms for a molecule C++ signature : unsigned int CalcNumAtoms(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumhba",
+      "description": "returns the number of H-bond acceptors for a molecule C++ signature : unsigned int CalcNumHBA(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumhbd",
+      "description": "returns the number of H-bond donors for a molecule C++ signature : unsigned int CalcNumHBD(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumheavyatoms",
+      "description": "returns the number of heavy atoms for a molecule C++ signature : unsigned int CalcNumHeavyAtoms(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumheteroatoms",
+      "description": "returns the number of heteroatoms for a molecule C++ signature : unsigned int CalcNumHeteroatoms(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumheterocycles",
+      "description": "returns the number of heterocycles for a molecule C++ signature : unsigned int CalcNumHeterocycles(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumlipinskihba",
+      "description": "returns the number of Lipinski H-bond acceptors for a molecule C++ signature : unsigned int CalcNumLipinskiHBA(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumlipinskihbd",
+      "description": "returns the number of Lipinski H-bond donors for a molecule C++ signature : unsigned int CalcNumLipinskiHBD(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumrings",
+      "description": "returns the number of rings for a molecule C++ signature : unsigned int CalcNumRings(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumrotatablebonds",
+      "description": "returns the number of rotatable bonds for a molecule. strict = NumRotatableBondsOptions.NonStrict - Simple rotatable bond definition.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          },
+          "strict": {
+            "type": "string",
+            "description": "bool object"
+          }
+        },
+        "required": [
+          "mol",
+          "strict"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumsaturatedcarbocycles",
+      "description": "returns the number of saturated carbocycles for a molecule C++ signature : unsigned int CalcNumSaturatedCarbocycles(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumsaturatedheterocycles",
+      "description": "returns the number of saturated heterocycles for a molecule C++ signature : unsigned int CalcNumSaturatedHeterocycles(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumsaturatedrings",
+      "description": "returns the number of saturated rings for a molecule C++ signature : unsigned int CalcNumSaturatedRings(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcnumunspecifiedatomstereocenters",
+      "description": "Returns the number of unspecified atomic stereocenters C++ signature : unsigned int CalcNumUnspecifiedAtomStereoCenters(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calcoxidationnumbers",
+      "description": "Adds the oxidation number/state to the atoms of a molecule as property OxidationNumber on each atom.  Use Pauling electronegativities.  This is experimental code, still under development. C++ signature : void CalcOxidationNumbers(RDKit::ROMol)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  }
+]

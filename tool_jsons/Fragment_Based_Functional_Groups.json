@@ -1,0 +1,1698 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_min_ring_frequency",
+      "description": "Return the least frequent known ring system in the molecule with its frequency.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smi": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smi"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "remove_stereo_from_smiles",
+      "description": "Removes stereochemistry from SMILES and returns canonical SMILES and InChI Key.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smi_in": {
+            "type": "string",
+            "description": "Input SMILES string with stereochemistry"
+          }
+        },
+        "required": ["smi_in"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_spiro_atoms",
+      "description": "Returns atom indices that are shared between two rings (spiro atoms).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smi": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smi"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "max_ring_size",
+      "description": "Returns the size of the largest ring in the molecule.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smi": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smi"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "ring_stats",
+      "description": "Returns the number of rings and the size of the largest ring in the molecule.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smi": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smi"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "count_fragments",
+      "description": "Returns the number of molecular fragments present in the SMILES.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smi": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smi"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_largest_fragment",
+      "description": "Returns the SMILES of the largest fragment by atom count in a molecule.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smi": {
+            "type": "string",
+            "description": "Input SMILES string"
+          }
+        },
+        "required": ["smi"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_phos_acid",
+      "description": "Number of phosphoric acid groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_Al_COO",
+      "description": "Number of aliphatic carboxylic acids",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_Al_OH",
+      "description": "Number of aliphatic hydroxyl groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_Al_OH_noTert",
+      "description": "Number of aliphatic hydroxyl groups excluding tert-OH",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_ArN",
+      "description": "Number of N functional groups attached to aromatics",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_Ar_COO",
+      "description": "Number of Aromatic carboxylic acid",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_Ar_N",
+      "description": "Number of aromatic nitrogens",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_Ar_NH",
+      "description": "Number of aromatic amines",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_Ar_OH",
+      "description": "Number of aromatic hydroxyl groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_COO",
+      "description": "Number of carboxylic acids",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_COO2",
+      "description": "Number of carboxylic acids",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_C_O",
+      "description": "Number of carbonyl O",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_C_O_noCOO",
+      "description": "Number of carbonyl O, excluding COOH",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_C_S",
+      "description": "Number of thiocarbonyl",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_HOCCN",
+      "description": "Number of C(OH)CCN-Ctert-alkyl or C(OH)CCNcyclic",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_Imine",
+      "description": "Number of Imines",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_NH0",
+      "description": "Number of Tertiary amines",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_NH1",
+      "description": "Number of Secondary amines",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_NH2",
+      "description": "Number of Primary amines",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_N_O",
+      "description": "Number of hydroxylamine groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_Nhpyrrole",
+      "description": "Number of H-pyrrole nitrogens",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_SH",
+      "description": "Number of thiol groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_aldehyde",
+      "description": "Number of aldehydes",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_alkyl_carbamate",
+      "description": "Number of alkyl carbamates (subject to hydrolysis)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_alkyl_halide",
+      "description": "Number of alkyl halides",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_allylic_oxid",
+      "description": "Number of allylic oxidation sites excluding steroid dienone",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_amide",
+      "description": "Number of amides",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_amidine",
+      "description": "Number of amidine groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_aniline",
+      "description": "Number of anilines",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_aryl_methyl",
+      "description": "Number of aryl methyl sites for hydroxylation",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_azide",
+      "description": "Number of azide groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_azo",
+      "description": "Number of azo groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_barbitur",
+      "description": "Number of barbiturate groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_benzene",
+      "description": "Number of benzene rings",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_benzodiazepine",
+      "description": "Number of benzodiazepines with no additional fused rings",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_bicyclic",
+      "description": "Bicyclic",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_diazo",
+      "description": "Number of diazo groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_dihydropyridine",
+      "description": "Number of dihydropyridines",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_epoxide",
+      "description": "Number of epoxide rings",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_ester",
+      "description": "Number of esters",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_ether",
+      "description": "Number of ether oxygens (including phenoxy)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_furan",
+      "description": "Number of furan rings",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_guanido",
+      "description": "Number of guanidine groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_halogen",
+      "description": "Number of halogens",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_hdrzine",
+      "description": "Number of hydrazine groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_hdrzone",
+      "description": "Number of hydrazone groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_imidazole",
+      "description": "Number of imidazole rings",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_imide",
+      "description": "Number of imide groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_isocyan",
+      "description": "Number of isocyanates",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_isothiocyan",
+      "description": "Number of isothiocyanates",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_ketone",
+      "description": "Number of ketones",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_ketone_Topliss",
+      "description": "Number of ketones excluding diaryl, a,b-unsat. dienones, heteroatom on Calpha",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_lactam",
+      "description": "Number of beta lactams",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_lactone",
+      "description": "Number of cyclic esters (lactones)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_methoxy",
+      "description": "Number of methoxy groups -OCH3",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_morpholine",
+      "description": "Number of morpholine rings",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_nitrile",
+      "description": "Number of nitriles",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_nitro",
+      "description": "Number of nitro groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_nitro_arom",
+      "description": "Number of nitro benzene ring substituents",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_nitro_arom_nonortho",
+      "description": "Number of non-ortho nitro benzene ring substituents",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_nitroso",
+      "description": "Number of nitroso groups, excluding NO2",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_oxazole",
+      "description": "Number of oxazole rings",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_oxime",
+      "description": "Number of oxime groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_para_hydroxylation",
+      "description": "Number of para-hydroxylation sites",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_phenol",
+      "description": "Number of phenols",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_phenol_noOrthoHbond",
+      "description": "Number of phenolic OH excluding ortho intramolecular Hbond substituents",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_phos_ester",
+      "description": "Number of phosphoric ester groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_piperdine",
+      "description": "Number of piperdine rings",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_piperzine",
+      "description": "Number of piperzine rings",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_priamide",
+      "description": "Number of primary amides",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_prisulfonamd",
+      "description": "Number of primary sulfonamides",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_pyridine",
+      "description": "Number of pyridine rings",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_quatN",
+      "description": "Number of quaternary nitrogens",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_sulfide",
+      "description": "Number of thioether",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_sulfonamd",
+      "description": "Number of sulfonamides",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_sulfone",
+      "description": "Number of sulfone groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_term_acetylene",
+      "description": "Number of terminal acetylenes",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_tetrazole",
+      "description": "Number of tetrazole rings",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_thiazole",
+      "description": "Number of thiazole rings",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_thiocyan",
+      "description": "Number of thiocyanates",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_thiophene",
+      "description": "Number of thiophene rings",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_unbrch_alkane",
+      "description": "Number of unbranched alkanes of at least 4 members (excludes halogenated alkanes)",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fr_urea",
+      "description": "Number of urea groups",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mol": {
+            "type": "string",
+            "description": "Mol object"
+          }
+        },
+        "required": [
+          "mol"
+        ]
+      }
+    }
+  }
+]

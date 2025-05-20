@@ -1,0 +1,34 @@
+
+    \begin{longtable}{|l|p{0.76\textwidth}|}
+    \hline
+    \textbf{Function} & \textbf{Description} \\
+    \hline
+    \texttt{bcut2d} & Implements BCUT descriptors From J. Chem. Inf. Comput. Sci., Vol. 39, No. 1, 1999Diagonal elements are (currently) atomic mass, gasteiger charge,crippen logP and crippen MRReturns the 2D BCUT2D descriptors vector as described in returns [mass eigen value high, mass eigen value low, gasteiger charge eigenvalue high, gasteiger charge low, \\
+\hline
+\texttt{calcautocorr2d} & Returns 2D Autocorrelation descriptors vector C++ signature : boost::python::list CalcAUTOCORR2D(RDKit::ROMol [,std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >=’’]) \\
+\hline
+\texttt{calcchi0n} & C++ signature : double CalcChi0n(RDKit::ROMol [,bool=False]) \\
+\hline
+\texttt{calcchi0v} & C++ signature : double CalcChi0v(RDKit::ROMol [,bool=False]) \\
+\hline
+\texttt{calcchi1n} & C++ signature : double CalcChi1n(RDKit::ROMol [,bool=False]) \\
+\hline
+\texttt{calcchi1v} & C++ signature : double CalcChi1v(RDKit::ROMol [,bool=False]) \\
+\hline
+\texttt{calcchi2n} & C++ signature : double CalcChi2n(RDKit::ROMol [,bool=False]) \\
+\hline
+\texttt{calcchi2v} & C++ signature : double CalcChi2v(RDKit::ROMol [,bool=False]) \\
+\hline
+\texttt{calcchi3n} & C++ signature : double CalcChi3n(RDKit::ROMol [,bool=False]) \\
+\hline
+\texttt{calcchi3v} & C++ signature : double CalcChi3v(RDKit::ROMol [,bool=False]) \\
+\hline
+\texttt{calcchi4n} & C++ signature : double CalcChi4n(RDKit::ROMol [,bool=False]) \\
+\hline
+\texttt{calcchi4v} & C++ signature : double CalcChi4v(RDKit::ROMol [,bool=False]) \\
+\hline
+
+    \caption{List of Electronic Topological Descriptors tools}
+    \label{tab:Electronic_Topological_Descriptors}
+    \end{longtable}
+    
