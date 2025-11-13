@@ -1,6 +1,9 @@
 """Base templates for task prompts"""
 
-def get_base_scientist_prompt(task_condition: str, topk_smiles: str, target_functional_groups: str) -> str:
+
+def get_base_scientist_prompt(
+    task_condition: str, topk_smiles: str, target_functional_groups: str
+) -> str:
     """Base template for scientist prompt"""
     return f"""Your task is to design a SMILES string for a molecule that satisfies the following condition: 
 
@@ -36,9 +39,18 @@ Take a deep breath and think carefully before writing your answer.
 ```
 """
 
-def get_base_scientist_prompt_with_review(task_condition: str, functional_groups: str, target_functional_groups: str,
-                                        scientist_think_dict: dict, reviewer_feedback_dict: dict, previous_smiles: str, score: float, 
-                                        smiles_history: str, topk_smiles: str) -> str:
+
+def get_base_scientist_prompt_with_review(
+    task_condition: str,
+    functional_groups: str,
+    target_functional_groups: str,
+    scientist_think_dict: dict,
+    reviewer_feedback_dict: dict,
+    previous_smiles: str,
+    score: float,
+    smiles_history: str,
+    topk_smiles: str,
+) -> str:
     """Base template for scientist prompt with review"""
     return f"""YOU MUST NOT REPEAT ANY OF THE PREVIOUSLY GENERATED SMILES:
 {smiles_history}
@@ -104,8 +116,14 @@ Take a deep breath and think carefully before writing your answer.
 ```
 """
 
-def get_base_reviewer_prompt(task_condition: str, functional_groups: str, target_functional_groups: str,
-                           scientist_think_dict: dict, score: float) -> str:
+
+def get_base_reviewer_prompt(
+    task_condition: str,
+    functional_groups: str,
+    target_functional_groups: str,
+    scientist_think_dict: dict,
+    score: float,
+) -> str:
     """Base template for reviewer prompt"""
     return f"""Evaluate the Scientist LLM's reasoning steps and final SMILES molecule for:
 - Validity
@@ -157,8 +175,16 @@ Take a deep breath and think carefully before writing your answer.
 ```
 """
 
-def get_base_scientist_prompt_with_double_checker_review(task_condition: str, functional_groups: str, target_functional_groups: str,
-                                                      previous_thinking: dict, previous_smiles: str, double_checker_feedback: dict, smiles_history: str) -> str:
+
+def get_base_scientist_prompt_with_double_checker_review(
+    task_condition: str,
+    functional_groups: str,
+    target_functional_groups: str,
+    previous_thinking: dict,
+    previous_smiles: str,
+    double_checker_feedback: dict,
+    smiles_history: str,
+) -> str:
     """Base template for scientist prompt with double checker review"""
     return f"""YOU MUST NOT REPEAT ANY OF THE PREVIOUSLY GENERATED SMILES:
 {smiles_history}
@@ -207,8 +233,14 @@ Take a deep breath and think carefully before writing your answer.
 ```
 """
 
-def get_base_double_checker_prompt(task_condition: str, functional_groups: str, target_functional_groups: str,
-                                 thinking: dict, smiles: str) -> str:
+
+def get_base_double_checker_prompt(
+    task_condition: str,
+    functional_groups: str,
+    target_functional_groups: str,
+    thinking: dict,
+    smiles: str,
+) -> str:
     """Base template for double checker prompt"""
     return f"""You will be given:
 - A user prompt describing the target objective,
@@ -252,4 +284,4 @@ Take a deep breath and think carefully before writing your answer.
   "consistency": "Consistent" or "Inconsistent",
 }}
 ```
-""" 
+"""

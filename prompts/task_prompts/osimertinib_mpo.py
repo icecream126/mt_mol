@@ -6,8 +6,13 @@ from rdkit import DataStructs
 # Define osimertinib reference SMILES and fingerprints
 osimertinib_smiles = "COc1cc(N(C)CCN(C)C)c(NC(=O)C=C)cc1Nc2nccc(n2)c3cn(C)c4ccccc34"
 osimertinib_mol = Chem.MolFromSmiles(osimertinib_smiles)
-osimertinib_fp_fcfc4 = rdMolDescriptors.GetMorganFingerprintAsBitVect(osimertinib_mol, radius=2, nBits=2048)  # FCFP4-like
-osimertinib_fp_ecfc6 = rdMolDescriptors.GetMorganFingerprintAsBitVect(osimertinib_mol, radius=3, nBits=2048)  # ECFP6-like
+osimertinib_fp_fcfc4 = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+    osimertinib_mol, radius=2, nBits=2048
+)  # FCFP4-like
+osimertinib_fp_ecfc6 = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+    osimertinib_mol, radius=3, nBits=2048
+)  # ECFP6-like
+
 
 def get_scientist_prompt(topk_smiles):
     return f"""Your task is to design a SMILES string for a molecule that satisfies the following conditions:
@@ -42,11 +47,24 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
-def get_scientist_prompt_with_review(scientist_think_dict, reviewer_feedback_dict, previous_smiles, score, functional_groups, smiles_history, topk_smiles):
+
+def get_scientist_prompt_with_review(
+    scientist_think_dict,
+    reviewer_feedback_dict,
+    previous_smiles,
+    score,
+    functional_groups,
+    smiles_history,
+    topk_smiles,
+):
     mol = Chem.MolFromSmiles(scientist_think_dict["smiles"])
     if mol is not None:
-        fp_fcfc4 = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, radius=2, nBits=2048)
-        fp_ecfc6 = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, radius=3, nBits=2048)
+        fp_fcfc4 = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+            mol, radius=2, nBits=2048
+        )
+        fp_ecfc6 = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+            mol, radius=3, nBits=2048
+        )
         sim_fcfc4 = DataStructs.TanimotoSimilarity(fp_fcfc4, osimertinib_fp_fcfc4)
         sim_ecfc6 = DataStructs.TanimotoSimilarity(fp_ecfc6, osimertinib_fp_ecfc6)
         logp = Descriptors.MolLogP(mol)
@@ -126,11 +144,16 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
+
 def get_reviewer_prompt(scientist_think_dict, score, functional_groups):
     mol = Chem.MolFromSmiles(scientist_think_dict["smiles"])
     if mol is not None:
-        fp_fcfc4 = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, radius=2, nBits=2048)
-        fp_ecfc6 = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, radius=3, nBits=2048)
+        fp_fcfc4 = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+            mol, radius=2, nBits=2048
+        )
+        fp_ecfc6 = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+            mol, radius=3, nBits=2048
+        )
         sim_fcfc4 = DataStructs.TanimotoSimilarity(fp_fcfc4, osimertinib_fp_fcfc4)
         sim_ecfc6 = DataStructs.TanimotoSimilarity(fp_ecfc6, osimertinib_fp_ecfc6)
         logp = Descriptors.MolLogP(mol)
@@ -192,11 +215,18 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
-def get_scientist_prompt_with_double_checker_review(previous_thinking, previous_smiles, double_checker_feedback, smiles_history):
+
+def get_scientist_prompt_with_double_checker_review(
+    previous_thinking, previous_smiles, double_checker_feedback, smiles_history
+):
     mol = Chem.MolFromSmiles(previous_smiles)
     if mol is not None:
-        fp_fcfc4 = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, radius=2, nBits=2048)
-        fp_ecfc6 = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, radius=3, nBits=2048)
+        fp_fcfc4 = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+            mol, radius=2, nBits=2048
+        )
+        fp_ecfc6 = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+            mol, radius=3, nBits=2048
+        )
         sim_fcfc4 = DataStructs.TanimotoSimilarity(fp_fcfc4, osimertinib_fp_fcfc4)
         sim_ecfc6 = DataStructs.TanimotoSimilarity(fp_ecfc6, osimertinib_fp_ecfc6)
         logp = Descriptors.MolLogP(mol)
@@ -254,11 +284,16 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
+
 def get_double_checker_prompt(thinking, improved_smiles):
     mol = Chem.MolFromSmiles(improved_smiles)
     if mol is not None:
-        fp_fcfc4 = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, radius=2, nBits=2048)
-        fp_ecfc6 = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, radius=3, nBits=2048)
+        fp_fcfc4 = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+            mol, radius=2, nBits=2048
+        )
+        fp_ecfc6 = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+            mol, radius=3, nBits=2048
+        )
         sim_fcfc4 = DataStructs.TanimotoSimilarity(fp_fcfc4, osimertinib_fp_fcfc4)
         sim_ecfc6 = DataStructs.TanimotoSimilarity(fp_ecfc6, osimertinib_fp_ecfc6)
         logp = Descriptors.MolLogP(mol)
@@ -319,5 +354,3 @@ Use the following format:
 }}
 ```
  """
-
-

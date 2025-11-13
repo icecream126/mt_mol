@@ -17,7 +17,6 @@ import pandas as pd
 from rdkit import Chem
 
 
-
 from rdkit.Chem import Descriptors
 
 from rdkit.Chem import rdMolDescriptors
@@ -39,6 +38,7 @@ from rdkit.Chem.rdFMCS import FindMCS
 from rdkit.Chem.rdMolTransforms import ComputeCentroid
 from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors, Fragments
+
 # from utils.utils import gen_conformers, refine_conformers, get_conformer_energies
 # import utils.utils
 # from utils.metrics import *
@@ -54,8 +54,10 @@ import pubchempy as pcp
 from rdkit import Chem
 from rdkit.Chem import Descriptors, Lipinski, rdMolDescriptors, inchi
 
+
 def get_conformer_energies(mol: Chem.Mol) -> List[float]:
     return [float(conf.GetProp("Energy")) for conf in mol.GetConformers()]
+
 
 def gen_conformers(mol: Chem.Mol, num_confs=50):
     try:
@@ -73,7 +75,9 @@ def gen_conformers(mol: Chem.Mol, num_confs=50):
     return mol
 
 
-def refine_conformers(mol: Chem.Mol, energy_threshold: float = 50, rms_threshold: Optional[float] = 0.5) -> Chem.Mol:
+def refine_conformers(
+    mol: Chem.Mol, energy_threshold: float = 50, rms_threshold: Optional[float] = 0.5
+) -> Chem.Mol:
     energy_list = [float(conf.GetProp("Energy")) for conf in mol.GetConformers()]
     energy_array = np.array(energy_list)
     min_energy = min(energy_list)
@@ -83,47 +87,60 @@ def refine_conformers(mol: Chem.Mol, energy_threshold: float = 50, rms_threshold
         mol.RemoveConformer(int(i))
     conf_ids = [x.GetId() for x in mol.GetConformers()]
     if rms_threshold is not None:
-        rms_list = [(i1, i2, AllChem.GetConformerRMS(mol, i1, i2)) for i1, i2 in combinations(conf_ids, 2)]
+        rms_list = [
+            (i1, i2, AllChem.GetConformerRMS(mol, i1, i2))
+            for i1, i2 in combinations(conf_ids, 2)
+        ]
         rms_remove_idx = list(set([x[1] for x in rms_list if x[2] < rms_threshold]))
         for i in sorted(rms_remove_idx, reverse=True):
             mol.RemoveConformer(int(i))
     return mol
 
+
 def get_rdkit_complexity(smiles):
     mol = Chem.MolFromSmiles(smiles)
     return str(Descriptors.BertzCT(mol))
+
 
 def get_rdkit_number_of_atoms(smiles):
     mol = Chem.MolFromSmiles(smiles)
     return str(mol.GetNumAtoms())
 
+
 def get_rdkit_number_of_bonds(smiles):
     mol = Chem.MolFromSmiles(smiles)
     return str(mol.GetNumBonds())
+
 
 def get_rdkit_rotatable_bond_count(smiles):
     mol = Chem.MolFromSmiles(smiles)
     return str(Lipinski.NumRotatableBonds(mol))
 
+
 def get_rdkit_h_bond_donor_count(smiles):
     mol = Chem.MolFromSmiles(smiles)
     return str(Lipinski.NumHDonors(mol))
+
 
 def get_rdkit_h_bond_acceptor_count(smiles):
     mol = Chem.MolFromSmiles(smiles)
     return str(Lipinski.NumHAcceptors(mol))
 
+
 def get_rdkit_molecular_formula(smiles):
     mol = Chem.MolFromSmiles(smiles)
     return str(rdMolDescriptors.CalcMolFormula(mol))
+
 
 def get_rdkit_canonical_smiles(smiles):
     mol = Chem.MolFromSmiles(smiles)
     return str(Chem.MolToSmiles(mol, canonical=True))
 
+
 def get_rdkit_inchi(smiles):
     mol = Chem.MolFromSmiles(smiles)
     return str(inchi.MolToInchi(mol))
+
 
 def get_center(smi: str) -> str:
     mol = Chem.MolFromSmiles(smi)
@@ -142,7 +159,9 @@ def get_shape_moments(smi: str) -> str:
     return f"NPR1: {NPR1(mol):.4f}, NPR2: {NPR2(mol):.4f}"
 
 
-def refine_conformers(smi: str, energy_threshold: float = 50.0, rms_threshold: Optional[float] = 0.5) -> str:
+def refine_conformers(
+    smi: str, energy_threshold: float = 50.0, rms_threshold: Optional[float] = 0.5
+) -> str:
     mol = Chem.MolFromSmiles(smi)
     mol = gen_conformers(mol, num_confs=10)
     if mol is None or mol.GetNumConformers() == 0:
@@ -160,7 +179,6 @@ def get_conformer_energies(smi: str) -> str:
         return "[Error] No conformers to retrieve energies from"
     energies = get_conformer_energies(mol)
     return f"Conformer energies: {[round(e, 4) for e in energies]}"
-
 
 
 class RingSystemFinder:
@@ -181,7 +199,11 @@ class RingSystemFinder:
     def cleave_linker_bonds(mol):
         frag_bond_list = []
         for bnd in mol.GetBonds():
-            if not bnd.IsInRing() and not bnd.GetBoolProp("protected") and bnd.GetBondType() == Chem.BondType.SINGLE:
+            if (
+                not bnd.IsInRing()
+                and not bnd.GetBoolProp("protected")
+                and bnd.GetBondType() == Chem.BondType.SINGLE
+            ):
                 frag_bond_list.append(bnd.GetIdx())
         if frag_bond_list:
             frag_mol = Chem.FragmentOnBonds(mol, frag_bond_list)
@@ -210,10 +232,12 @@ class RingSystemFinder:
     def fix_bond_stereo(mol):
         for bnd in mol.GetBonds():
             if bnd.GetBondType() == Chem.BondType.DOUBLE:
-                if bnd.GetBeginAtom().GetDegree() == 1 or bnd.GetEndAtom().GetDegree() == 1:
+                if (
+                    bnd.GetBeginAtom().GetDegree() == 1
+                    or bnd.GetEndAtom().GetDegree() == 1
+                ):
                     bnd.SetStereo(Chem.BondStereo.STEREONONE)
         return mol
-
 
     def find_ring_systems(self, mol, keep_dummy=False, as_mols=False):
         self.tag_bonds_to_preserve(mol)
@@ -222,7 +246,8 @@ class RingSystemFinder:
         if not as_mols:
             output_list = [Chem.MolToSmiles(x) for x in output_list]
         return output_list
-    
+
+
 class RingSystemLookup:
     def __init__(self, ring_file=None, ignore_stereo=False):
         ring_csv_name = "chembl_ring_systems.csv"
@@ -231,11 +256,11 @@ class RingSystemLookup:
         if ring_file is None:
             # url = f'https://github.com/PatWalters/useful_rdkit_utils/tree/master/data/{ring_csv_name}'
 
-            self.rule_path = '/home/anonymous/chemiloop/dataset/chembl_ring_systems.csv'
+            self.rule_path = "/home/anonymous/chemiloop/dataset/chembl_ring_systems.csv"
         else:
             self.rule_path = ring_file
         self.ignore_stereo = ignore_stereo
-        print('self.rule_path: ', self.rule_path)
+        print("self.rule_path: ", self.rule_path)
         self.ring_df = pd.read_csv(self.rule_path)
         self.ring_dict = dict(self.ring_df[["InChI", "Count"]].values)
         self.ring_system_finder = RingSystemFinder()
@@ -257,6 +282,7 @@ class RingSystemLookup:
         if not results:
             return "[Info] No known ring systems found."
         return "\n".join([f"{smi}\tCount: {cnt}" for smi, cnt in results])
+
 
 def get_min_ring_frequency(smi: str) -> str:
     ring_lookup = RingSystemLookup(ignore_stereo=False)
@@ -292,7 +318,11 @@ def get_spiro_atoms(smi: str) -> str:
         inter = i & j
         if len(inter) == 1:
             spiro_atoms += list(inter)
-    return f"Spiro atom indices: {sorted(set(spiro_atoms))}" if spiro_atoms else "[Info] No spiro atoms."
+    return (
+        f"Spiro atom indices: {sorted(set(spiro_atoms))}"
+        if spiro_atoms
+        else "[Info] No spiro atoms."
+    )
 
 
 def max_ring_size(smi: str) -> str:
@@ -345,235 +375,549 @@ def get_largest_fragment(smi: str) -> str:
 
 
 # ==== Fragments ====
-#TODO: Change the below functions' input to be smiles
-def fr_al_coo(smiles): return Fragments.fr_Al_COO(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_al_oh(smiles): return Fragments.fr_Al_OH(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_al_oh_notert(smiles): return Fragments.fr_Al_OH_noTert(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_arn(smiles): return Fragments.fr_ArN(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_ar_coo(smiles): return Fragments.fr_Ar_COO(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_ar_n(smiles): return Fragments.fr_Ar_N(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_ar_nh(smiles): return Fragments.fr_Ar_NH(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_ar_oh(smiles): return Fragments.fr_Ar_OH(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_coo(smiles): return Fragments.fr_COO(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_coo2(smiles): return Fragments.fr_COO2(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_c_o(smiles): return Fragments.fr_C_O(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_c_o_nocoo(smiles): return Fragments.fr_C_O_noCOO(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_c_s(smiles): return Fragments.fr_C_S(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_hoccn(smiles): return Fragments.fr_HOCCN(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_imine(smiles): return Fragments.fr_Imine(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_nh0(smiles): return Fragments.fr_NH0(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_nh1(smiles): return Fragments.fr_NH1(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_nh2(smiles): return Fragments.fr_NH2(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_n_o(smiles): return Fragments.fr_N_O(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_ndealk1(smiles): return Fragments.fr_Ndealkylation1(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_ndealk2(smiles): return Fragments.fr_Ndealkylation2(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_nhpyrrole(smiles): return Fragments.fr_Nhpyrrole(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_sh(smiles): return Fragments.fr_SH(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_aldehyde(smiles): return Fragments.fr_aldehyde(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_alkyl_carbamate(smiles): return Fragments.fr_alkyl_carbamate(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_alkyl_halide(smiles): return Fragments.fr_alkyl_halide(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_allylic_oxid(smiles): return Fragments.fr_allylic_oxid(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_amide(smiles): return Fragments.fr_amide(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_amidine(smiles): return Fragments.fr_amidine(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_aniline(smiles): return Fragments.fr_aniline(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_aryl_methyl(smiles): return Fragments.fr_aryl_methyl(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_azide(smiles): return Fragments.fr_azide(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_azo(smiles): return Fragments.fr_azo(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_barbitur(smiles): return Fragments.fr_barbitur(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_benzene(smiles): return Fragments.fr_benzene(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_benzodiazepine(smiles): return Fragments.fr_benzodiazepine(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_bicyclic(smiles): return Fragments.fr_bicyclic(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_diazo(smiles): return Fragments.fr_diazo(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_dihydropyridine(smiles): return Fragments.fr_dihydropyridine(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_epoxide(smiles): return Fragments.fr_epoxide(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_ester(smiles): return Fragments.fr_ester(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_ether(smiles): return Fragments.fr_ether(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_furan(smiles): return Fragments.fr_furan(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_guanido(smiles): return Fragments.fr_guanido(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_halogen(smiles): return Fragments.fr_halogen(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_hdrzine(smiles): return Fragments.fr_hdrzine(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_hdrzone(smiles): return Fragments.fr_hdrzone(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_imidazole(smiles): return Fragments.fr_imidazole(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_imide(smiles): return Fragments.fr_imide(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_isocyan(smiles): return Fragments.fr_isocyan(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_isothiocyan(smiles): return Fragments.fr_isothiocyan(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_ketone(smiles): return Fragments.fr_ketone(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_ketone_topliss(smiles): return Fragments.fr_ketone_Topliss(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_lactam(smiles): return Fragments.fr_lactam(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_lactone(smiles): return Fragments.fr_lactone(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_methoxy(smiles): return Fragments.fr_methoxy(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_morpholine(smiles): return Fragments.fr_morpholine(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_nitrile(smiles): return Fragments.fr_nitrile(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_nitro(smiles): return Fragments.fr_nitro(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_nitro_arom(smiles): return Fragments.fr_nitro_arom(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_nitro_arom_nonortho(smiles): return Fragments.fr_nitro_arom_nonortho(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_nitroso(smiles): return Fragments.fr_nitroso(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_oxazole(smiles): return Fragments.fr_oxazole(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_oxime(smiles): return Fragments.fr_oxime(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_para_hydroxylation(smiles): return Fragments.fr_para_hydroxylation(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_phenol(smiles): return Fragments.fr_phenol(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_phenol_noorthohbond(smiles): return Fragments.fr_phenol_noOrthoHbond(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_phos_acid(smiles): return Fragments.fr_phos_acid(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_phos_ester(smiles): return Fragments.fr_phos_ester(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_piperdine(smiles): return Fragments.fr_piperdine(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_piperzine(smiles): return Fragments.fr_piperzine(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_priamide(smiles): return Fragments.fr_priamide(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_prisulfonamd(smiles): return Fragments.fr_prisulfonamd(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_pyridine(smiles): return Fragments.fr_pyridine(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_quatn(smiles): return Fragments.fr_quatN(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_sulfide(smiles): return Fragments.fr_sulfide(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_sulfonamd(smiles): return Fragments.fr_sulfonamd(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_sulfone(smiles): return Fragments.fr_sulfone(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_term_acetylene(smiles): return Fragments.fr_term_acetylene(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_tetrazole(smiles): return Fragments.fr_tetrazole(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_thiazole(smiles): return Fragments.fr_thiazole(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_thiocyan(smiles): return Fragments.fr_thiocyan(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_thiophene(smiles): return Fragments.fr_thiophene(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_unbrch_alkane(smiles): return Fragments.fr_unbrch_alkane(Chem.MolFromSmiles(smiles), countUnique=True)
-def fr_urea(smiles): return Fragments.fr_urea(Chem.MolFromSmiles(smiles), countUnique=True)
+# TODO: Change the below functions' input to be smiles
+def fr_al_coo(smiles):
+    return Fragments.fr_Al_COO(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_al_oh(smiles):
+    return Fragments.fr_Al_OH(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_al_oh_notert(smiles):
+    return Fragments.fr_Al_OH_noTert(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_arn(smiles):
+    return Fragments.fr_ArN(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_ar_coo(smiles):
+    return Fragments.fr_Ar_COO(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_ar_n(smiles):
+    return Fragments.fr_Ar_N(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_ar_nh(smiles):
+    return Fragments.fr_Ar_NH(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_ar_oh(smiles):
+    return Fragments.fr_Ar_OH(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_coo(smiles):
+    return Fragments.fr_COO(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_coo2(smiles):
+    return Fragments.fr_COO2(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_c_o(smiles):
+    return Fragments.fr_C_O(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_c_o_nocoo(smiles):
+    return Fragments.fr_C_O_noCOO(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_c_s(smiles):
+    return Fragments.fr_C_S(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_hoccn(smiles):
+    return Fragments.fr_HOCCN(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_imine(smiles):
+    return Fragments.fr_Imine(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_nh0(smiles):
+    return Fragments.fr_NH0(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_nh1(smiles):
+    return Fragments.fr_NH1(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_nh2(smiles):
+    return Fragments.fr_NH2(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_n_o(smiles):
+    return Fragments.fr_N_O(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_ndealk1(smiles):
+    return Fragments.fr_Ndealkylation1(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_ndealk2(smiles):
+    return Fragments.fr_Ndealkylation2(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_nhpyrrole(smiles):
+    return Fragments.fr_Nhpyrrole(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_sh(smiles):
+    return Fragments.fr_SH(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_aldehyde(smiles):
+    return Fragments.fr_aldehyde(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_alkyl_carbamate(smiles):
+    return Fragments.fr_alkyl_carbamate(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_alkyl_halide(smiles):
+    return Fragments.fr_alkyl_halide(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_allylic_oxid(smiles):
+    return Fragments.fr_allylic_oxid(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_amide(smiles):
+    return Fragments.fr_amide(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_amidine(smiles):
+    return Fragments.fr_amidine(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_aniline(smiles):
+    return Fragments.fr_aniline(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_aryl_methyl(smiles):
+    return Fragments.fr_aryl_methyl(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_azide(smiles):
+    return Fragments.fr_azide(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_azo(smiles):
+    return Fragments.fr_azo(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_barbitur(smiles):
+    return Fragments.fr_barbitur(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_benzene(smiles):
+    return Fragments.fr_benzene(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_benzodiazepine(smiles):
+    return Fragments.fr_benzodiazepine(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_bicyclic(smiles):
+    return Fragments.fr_bicyclic(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_diazo(smiles):
+    return Fragments.fr_diazo(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_dihydropyridine(smiles):
+    return Fragments.fr_dihydropyridine(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_epoxide(smiles):
+    return Fragments.fr_epoxide(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_ester(smiles):
+    return Fragments.fr_ester(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_ether(smiles):
+    return Fragments.fr_ether(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_furan(smiles):
+    return Fragments.fr_furan(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_guanido(smiles):
+    return Fragments.fr_guanido(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_halogen(smiles):
+    return Fragments.fr_halogen(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_hdrzine(smiles):
+    return Fragments.fr_hdrzine(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_hdrzone(smiles):
+    return Fragments.fr_hdrzone(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_imidazole(smiles):
+    return Fragments.fr_imidazole(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_imide(smiles):
+    return Fragments.fr_imide(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_isocyan(smiles):
+    return Fragments.fr_isocyan(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_isothiocyan(smiles):
+    return Fragments.fr_isothiocyan(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_ketone(smiles):
+    return Fragments.fr_ketone(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_ketone_topliss(smiles):
+    return Fragments.fr_ketone_Topliss(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_lactam(smiles):
+    return Fragments.fr_lactam(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_lactone(smiles):
+    return Fragments.fr_lactone(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_methoxy(smiles):
+    return Fragments.fr_methoxy(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_morpholine(smiles):
+    return Fragments.fr_morpholine(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_nitrile(smiles):
+    return Fragments.fr_nitrile(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_nitro(smiles):
+    return Fragments.fr_nitro(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_nitro_arom(smiles):
+    return Fragments.fr_nitro_arom(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_nitro_arom_nonortho(smiles):
+    return Fragments.fr_nitro_arom_nonortho(
+        Chem.MolFromSmiles(smiles), countUnique=True
+    )
+
+
+def fr_nitroso(smiles):
+    return Fragments.fr_nitroso(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_oxazole(smiles):
+    return Fragments.fr_oxazole(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_oxime(smiles):
+    return Fragments.fr_oxime(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_para_hydroxylation(smiles):
+    return Fragments.fr_para_hydroxylation(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_phenol(smiles):
+    return Fragments.fr_phenol(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_phenol_noorthohbond(smiles):
+    return Fragments.fr_phenol_noOrthoHbond(
+        Chem.MolFromSmiles(smiles), countUnique=True
+    )
+
+
+def fr_phos_acid(smiles):
+    return Fragments.fr_phos_acid(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_phos_ester(smiles):
+    return Fragments.fr_phos_ester(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_piperdine(smiles):
+    return Fragments.fr_piperdine(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_piperzine(smiles):
+    return Fragments.fr_piperzine(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_priamide(smiles):
+    return Fragments.fr_priamide(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_prisulfonamd(smiles):
+    return Fragments.fr_prisulfonamd(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_pyridine(smiles):
+    return Fragments.fr_pyridine(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_quatn(smiles):
+    return Fragments.fr_quatN(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_sulfide(smiles):
+    return Fragments.fr_sulfide(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_sulfonamd(smiles):
+    return Fragments.fr_sulfonamd(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_sulfone(smiles):
+    return Fragments.fr_sulfone(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_term_acetylene(smiles):
+    return Fragments.fr_term_acetylene(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_tetrazole(smiles):
+    return Fragments.fr_tetrazole(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_thiazole(smiles):
+    return Fragments.fr_thiazole(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_thiocyan(smiles):
+    return Fragments.fr_thiocyan(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_thiophene(smiles):
+    return Fragments.fr_thiophene(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_unbrch_alkane(smiles):
+    return Fragments.fr_unbrch_alkane(Chem.MolFromSmiles(smiles), countUnique=True)
+
+
+def fr_urea(smiles):
+    return Fragments.fr_urea(Chem.MolFromSmiles(smiles), countUnique=True)
 
 
 # ==== rdMolDescriptors ====
 def bcut2d(smiles):
     return rdMolDescriptors.BCUT2D(Chem.MolFromSmiles(smiles))
 
+
 def calcautocorr2d(smiles, CustomAtomProperty="GasteigerCharges"):
-    return rdMolDescriptors.CalcAUTOCORR2D(Chem.MolFromSmiles(smiles), CustomAtomProperty)
+    return rdMolDescriptors.CalcAUTOCORR2D(
+        Chem.MolFromSmiles(smiles), CustomAtomProperty
+    )
+
 
 def calcchi0n(smiles, force=None):
     return rdMolDescriptors.CalcChi0n(Chem.MolFromSmiles(smiles), force)
 
+
 def calcchi0v(smiles, force=None):
     return rdMolDescriptors.CalcChi0v(Chem.MolFromSmiles(smiles), force)
+
 
 def calcchi1n(smiles, force=None):
     return rdMolDescriptors.CalcChi1n(Chem.MolFromSmiles(smiles), force)
 
+
 def calcchi1v(smiles, force=None):
     return rdMolDescriptors.CalcChi1v(Chem.MolFromSmiles(smiles), force)
+
 
 def calcchi2n(smiles, force=None):
     return rdMolDescriptors.CalcChi2n(Chem.MolFromSmiles(smiles), force)
 
+
 def calcchi2v(smiles, force=None):
     return rdMolDescriptors.CalcChi2v(Chem.MolFromSmiles(smiles), force)
+
 
 def calcchi3n(smiles, force=None):
     return rdMolDescriptors.CalcChi3n(Chem.MolFromSmiles(smiles), force)
 
+
 def calcchi3v(smiles, force=None):
     return rdMolDescriptors.CalcChi3v(Chem.MolFromSmiles(smiles), force)
+
 
 def calcchi4n(smiles, force=None):
     return rdMolDescriptors.CalcChi4n(Chem.MolFromSmiles(smiles), force)
 
+
 def calcchi4v(smiles, force=None):
     return rdMolDescriptors.CalcChi4v(Chem.MolFromSmiles(smiles), force)
 
+
 def calccrippendescriptors(smiles, includeHs=None, force=None):
-    return rdMolDescriptors.CalcCrippenDescriptors(Chem.MolFromSmiles(smiles), includeHs, force)
+    return rdMolDescriptors.CalcCrippenDescriptors(
+        Chem.MolFromSmiles(smiles), includeHs, force
+    )
+
 
 def calcexactmolwt(smiles, onlyHeavy=None):
     return rdMolDescriptors.CalcExactMolWt(Chem.MolFromSmiles(smiles), onlyHeavy)
 
+
 def calcfractioncsp3(smiles):
     return rdMolDescriptors.CalcFractionCSP3(Chem.MolFromSmiles(smiles))
+
 
 def calckappa1(smiles):
     return rdMolDescriptors.CalcKappa1(Chem.MolFromSmiles(smiles))
 
+
 def calckappa2(smiles):
     return rdMolDescriptors.CalcKappa2(Chem.MolFromSmiles(smiles))
+
 
 def calckappa3(smiles):
     return rdMolDescriptors.CalcKappa3(Chem.MolFromSmiles(smiles))
 
+
 def calclabuteasa(smiles, includeHs=None, force=None):
     return rdMolDescriptors.CalcLabuteASA(Chem.MolFromSmiles(smiles), includeHs, force)
 
+
 def calcmolformula(smiles, separateIsotopes=None, abbreviateHIsotopes=None):
-    return rdMolDescriptors.CalcMolFormula(Chem.MolFromSmiles(smiles), separateIsotopes, abbreviateHIsotopes)
+    return rdMolDescriptors.CalcMolFormula(
+        Chem.MolFromSmiles(smiles), separateIsotopes, abbreviateHIsotopes
+    )
+
 
 def calcnumaliphaticcarbocycles(smiles):
     return rdMolDescriptors.CalcNumAliphaticCarbocycles(Chem.MolFromSmiles(smiles))
 
+
 def calcnumaliphaticheterocycles(smiles):
     return rdMolDescriptors.CalcNumAliphaticHeterocycles(Chem.MolFromSmiles(smiles))
+
 
 def calcnumaliphaticrings(smiles):
     return rdMolDescriptors.CalcNumAliphaticRings(Chem.MolFromSmiles(smiles))
 
+
 def calcnumamidebonds(smiles):
     return rdMolDescriptors.CalcNumAmideBonds(Chem.MolFromSmiles(smiles))
+
 
 def calcnumaromaticcarbocycles(smiles):
     return rdMolDescriptors.CalcNumAromaticCarbocycles(Chem.MolFromSmiles(smiles))
 
+
 def calcnumaromaticheterocycles(smiles):
     return rdMolDescriptors.CalcNumAromaticHeterocycles(Chem.MolFromSmiles(smiles))
+
 
 def calcnumaromaticrings(smiles):
     return rdMolDescriptors.CalcNumAromaticRings(Chem.MolFromSmiles(smiles))
 
+
 def calcnumatomstereocenters(smiles):
     return rdMolDescriptors.CalcNumAtomStereoCenters(Chem.MolFromSmiles(smiles))
+
 
 def calcnumatoms(smiles):
     return rdMolDescriptors.CalcNumAtoms(Chem.MolFromSmiles(smiles))
 
+
 def calcnumhba(smiles):
     return rdMolDescriptors.CalcNumHBA(Chem.MolFromSmiles(smiles))
+
 
 def calcnumhbd(smiles):
     return rdMolDescriptors.CalcNumHBD(Chem.MolFromSmiles(smiles))
 
+
 def calcnumheavyatoms(smiles):
     return rdMolDescriptors.CalcNumHeavyAtoms(Chem.MolFromSmiles(smiles))
+
 
 def calcnumheteroatoms(smiles):
     return rdMolDescriptors.CalcNumHeteroatoms(Chem.MolFromSmiles(smiles))
 
+
 def calcnumheterocycles(smiles):
     return rdMolDescriptors.CalcNumHeterocycles(Chem.MolFromSmiles(smiles))
+
 
 def calcnumlipinskihba(smiles):
     return rdMolDescriptors.CalcNumLipinskiHBA(Chem.MolFromSmiles(smiles))
 
+
 def calcnumlipinskihbd(smiles):
     return rdMolDescriptors.CalcNumLipinskiHBD(Chem.MolFromSmiles(smiles))
+
 
 def calcnumrings(smiles):
     return rdMolDescriptors.CalcNumRings(Chem.MolFromSmiles(smiles))
 
+
 def calcnumrotatablebonds(smiles, strict=None):
     return rdMolDescriptors.CalcNumRotatableBonds(Chem.MolFromSmiles(smiles), strict)
+
 
 def calcnumsaturatedcarbocycles(smiles):
     return rdMolDescriptors.CalcNumSaturatedCarbocycles(Chem.MolFromSmiles(smiles))
 
+
 def calcnumsaturatedheterocycles(smiles):
     return rdMolDescriptors.CalcNumSaturatedHeterocycles(Chem.MolFromSmiles(smiles))
+
 
 def calcnumsaturatedrings(smiles):
     return rdMolDescriptors.CalcNumSaturatedRings(Chem.MolFromSmiles(smiles))
 
+
 def calcnumunspecifiedatomstereocenters(smiles):
-    return rdMolDescriptors.CalcNumUnspecifiedAtomStereoCenters(Chem.MolFromSmiles(smiles))
+    return rdMolDescriptors.CalcNumUnspecifiedAtomStereoCenters(
+        Chem.MolFromSmiles(smiles)
+    )
+
 
 def calcoxidationnumbers(smiles):
     return rdMolDescriptors.CalcOxidationNumbers(Chem.MolFromSmiles(smiles))
 
+
 def calcpbf(smiles, confId=None):
     return rdMolDescriptors.CalcPBF(Chem.MolFromSmiles(smiles), confId)
+
 
 def calcphi(smiles):
     return rdMolDescriptors.CalcPhi(Chem.MolFromSmiles(smiles))
 
+
 def getconnectivityinvariants(smiles, includeRingMembership=None):
-    return rdMolDescriptors.GetConnectivityInvariants(Chem.MolFromSmiles(smiles), includeRingMembership)
+    return rdMolDescriptors.GetConnectivityInvariants(
+        Chem.MolFromSmiles(smiles), includeRingMembership
+    )
+
 
 def getfeatureinvariants(smiles):
     return rdMolDescriptors.GetFeatureInvariants(Chem.MolFromSmiles(smiles))
+
 
 def gethashedatompairfingerprint(
     smiles,
@@ -585,13 +929,23 @@ def gethashedatompairfingerprint(
     atomInvariants=None,
     includeChirality=False,
     use2D=True,
-    confId=-1
+    confId=-1,
 ):
-    return list(rdMolDescriptors.GetHashedAtomPairFingerprint(
-        Chem.MolFromSmiles(smiles), nBits, minLength, maxLength,
-        fromAtoms, ignoreAtoms, atomInvariants,
-        includeChirality, use2D, confId
-    ))
+    return list(
+        rdMolDescriptors.GetHashedAtomPairFingerprint(
+            Chem.MolFromSmiles(smiles),
+            nBits,
+            minLength,
+            maxLength,
+            fromAtoms,
+            ignoreAtoms,
+            atomInvariants,
+            includeChirality,
+            use2D,
+            confId,
+        )
+    )
+
 
 def gethashedatompairfingerprintasbitvect(
     smiles,
@@ -604,13 +958,24 @@ def gethashedatompairfingerprintasbitvect(
     nBitsPerEntry=4,
     includeChirality=False,
     use2D=True,
-    confId=-1
+    confId=-1,
 ):
-    return list(rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(
-        Chem.MolFromSmiles(smiles), nBits, minLength, maxLength,
-        fromAtoms, ignoreAtoms, atomInvariants,
-        nBitsPerEntry, includeChirality, use2D, confId
-    ))
+    return list(
+        rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(
+            Chem.MolFromSmiles(smiles),
+            nBits,
+            minLength,
+            maxLength,
+            fromAtoms,
+            ignoreAtoms,
+            atomInvariants,
+            nBitsPerEntry,
+            includeChirality,
+            use2D,
+            confId,
+        )
+    )
+
 
 def gethashedmorganfingerprint(
     smiles,
@@ -622,13 +987,23 @@ def gethashedmorganfingerprint(
     useBondTypes=True,
     useFeatures=False,
     bitInfo=None,
-    includeRedundantEnvironments=False
+    includeRedundantEnvironments=False,
 ):
-    return list(rdMolDescriptors.GetHashedMorganFingerprint(
-        Chem.MolFromSmiles(smiles), radius, nBits, invariants, fromAtoms,
-        useChirality, useBondTypes, useFeatures,
-        bitInfo, includeRedundantEnvironments
-    ))
+    return list(
+        rdMolDescriptors.GetHashedMorganFingerprint(
+            Chem.MolFromSmiles(smiles),
+            radius,
+            nBits,
+            invariants,
+            fromAtoms,
+            useChirality,
+            useBondTypes,
+            useFeatures,
+            bitInfo,
+            includeRedundantEnvironments,
+        )
+    )
+
 
 def gethashedtopologicaltorsionfingerprint(
     smiles,
@@ -637,12 +1012,20 @@ def gethashedtopologicaltorsionfingerprint(
     fromAtoms=None,
     ignoreAtoms=None,
     atomInvariants=None,
-    includeChirality=False
+    includeChirality=False,
 ):
-    return list(rdMolDescriptors.GetHashedTopologicalTorsionFingerprint(
-        Chem.MolFromSmiles(smiles), nBits, targetSize, fromAtoms,
-        ignoreAtoms, atomInvariants, includeChirality
-    ))
+    return list(
+        rdMolDescriptors.GetHashedTopologicalTorsionFingerprint(
+            Chem.MolFromSmiles(smiles),
+            nBits,
+            targetSize,
+            fromAtoms,
+            ignoreAtoms,
+            atomInvariants,
+            includeChirality,
+        )
+    )
+
 
 def gethashedtopologicaltorsionfingerprintasbitvect(
     smiles,
@@ -652,21 +1035,31 @@ def gethashedtopologicaltorsionfingerprintasbitvect(
     ignoreAtoms=None,
     atomInvariants=None,
     nBitsPerEntry=4,
-    includeChirality=False
+    includeChirality=False,
 ):
-    return list(rdMolDescriptors.GetHashedTopologicalTorsionFingerprintAsBitVect(
-        Chem.MolFromSmiles(smiles), nBits, targetSize, fromAtoms,
-        ignoreAtoms, atomInvariants,
-        nBitsPerEntry, includeChirality
-    ))
+    return list(
+        rdMolDescriptors.GetHashedTopologicalTorsionFingerprintAsBitVect(
+            Chem.MolFromSmiles(smiles),
+            nBits,
+            targetSize,
+            fromAtoms,
+            ignoreAtoms,
+            atomInvariants,
+            nBitsPerEntry,
+            includeChirality,
+        )
+    )
+
 
 def getmaccskeysfingerprint(smiles):
-    fp=rdMolDescriptors.GetMACCSKeysFingerprint(Chem.MolFromSmiles(smiles))
+    fp = rdMolDescriptors.GetMACCSKeysFingerprint(Chem.MolFromSmiles(smiles))
     return list(fp.GetOnBits())
+
 
 def getmorganfingerprint(smiles, radius=2):
     fp = rdMolDescriptors.GetMorganFingerprint(Chem.MolFromSmiles(smiles), radius=2)
     return fp.GetNonzeroElements()
+
 
 def getmorganfingerprintasbitvect(
     smiles,
@@ -678,10 +1071,15 @@ def getmorganfingerprintasbitvect(
     useBondTypes=True,
     useFeatures=False,
     bitInfo=None,
-    includeRedundantEnvironments=False
+    includeRedundantEnvironments=False,
 ):
-    fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(Chem.MolFromSmiles(smiles), radius, nBits)
-    return list(fp.GetOnBits())# , nBits, invariants, fromAtoms, useChirality, useBondTypes, useFeatures, bitInfo, includeRedundantEnvironments))
+    fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+        Chem.MolFromSmiles(smiles), radius, nBits
+    )
+    return list(
+        fp.GetOnBits()
+    )  # , nBits, invariants, fromAtoms, useChirality, useBondTypes, useFeatures, bitInfo, includeRedundantEnvironments))
+
 
 def gettopologicaltorsionfingerprint(
     smiles,
@@ -689,24 +1087,31 @@ def gettopologicaltorsionfingerprint(
     fromAtoms=None,
     ignoreAtoms=None,
     atomInvariants=None,
-    includeChirality=False
+    includeChirality=False,
 ):
-    fp = rdMolDescriptors.GetTopologicalTorsionFingerprint(Chem.MolFromSmiles(smiles), targetSize=4)
+    fp = rdMolDescriptors.GetTopologicalTorsionFingerprint(
+        Chem.MolFromSmiles(smiles), targetSize=4
+    )
     return fp.GetNonzeroElements()
+
 
 def mqns_(smiles, force=None):
     return rdMolDescriptors.MQNs_(Chem.MolFromSmiles(smiles), force)
 
+
 def peoe_vsa_(smiles, bins=None, force=None):
     return rdMolDescriptors.PEOE_VSA_(Chem.MolFromSmiles(smiles), bins, force)
+
 
 def smr_vsa_(smiles, bins=None, force=None):
     return rdMolDescriptors.SMR_VSA_(Chem.MolFromSmiles(smiles), bins, force)
 
+
 def slogp_vsa_(smiles, bins=None, force=None):
     return rdMolDescriptors.SlogP_VSA_(Chem.MolFromSmiles(smiles), bins, force)
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
 
     import inspect
     import sys
@@ -738,4 +1143,3 @@ if __name__=="__main__":
     print(f"calc_labute_asa: {calclabuteasa(mol)}")
     print(f"calc_crippen_descriptors: {calccrippendescriptors(mol)}")
     print(f"get_connectivity_invariants: {getconnectivityinvariants(mol)}")
-

@@ -1,4 +1,3 @@
-
 from rdkit import Chem
 from rdkit.Chem import Descriptors, rdMolDescriptors
 from rdkit import DataStructs
@@ -6,7 +5,9 @@ from rdkit import DataStructs
 # Reference molecule
 fexofenadine_smiles = "CC(C)(C(=O)O)c1ccc(cc1)C(O)CCCN2CCC(CC2)C(O)(c3ccccc3)c4ccccc4"
 fexofenadine_mol = Chem.MolFromSmiles(fexofenadine_smiles)
-fexofenadine_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(fexofenadine_mol)
+fexofenadine_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(
+    fexofenadine_mol
+)
 
 
 def get_scientist_prompt(topk_smiles):
@@ -43,7 +44,16 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
-def get_scientist_prompt_with_review(scientist_think_dict, reviewer_feedback_dict, previous_smiles, score, functional_groups, smiles_history, topk_smiles):
+
+def get_scientist_prompt_with_review(
+    scientist_think_dict,
+    reviewer_feedback_dict,
+    previous_smiles,
+    score,
+    functional_groups,
+    smiles_history,
+    topk_smiles,
+):
     mol = Chem.MolFromSmiles(scientist_think_dict["smiles"])
     if mol is not None:
         fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
@@ -116,6 +126,7 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
+
 def get_reviewer_prompt(scientist_think_dict, score, functional_groups):
     mol = Chem.MolFromSmiles(scientist_think_dict["smiles"])
     if mol is not None:
@@ -125,7 +136,7 @@ def get_reviewer_prompt(scientist_think_dict, score, functional_groups):
         logp = Descriptors.MolLogP(mol)
     else:
         similarity = tpsa = logp = "Invalid SMILES"
-    
+
     return f"""Evaluate the Scientist LLM’s reasoning and final molecule for:
 
 - Validity: Are the chemical modifications plausible and scientifically sound?
@@ -185,7 +196,10 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
-def get_scientist_prompt_with_double_checker_review(previous_thinking, previous_smiles, double_checker_feedback, smiles_history):
+
+def get_scientist_prompt_with_double_checker_review(
+    previous_thinking, previous_smiles, double_checker_feedback, smiles_history
+):
     mol = Chem.MolFromSmiles(previous_smiles)
     if mol is not None:
         fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
@@ -241,6 +255,7 @@ Take a deep breath and think carefully before writing your answer.
 }}
 ```
  """
+
 
 def get_double_checker_prompt(thinking, improved_smiles):
     mol = Chem.MolFromSmiles(improved_smiles)
@@ -309,4 +324,3 @@ Take a deep breath and think carefully before writing your answer.
 }}
 ```
  """
-

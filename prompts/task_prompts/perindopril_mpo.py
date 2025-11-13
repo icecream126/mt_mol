@@ -5,7 +5,9 @@ from rdkit import DataStructs
 # Reference molecule
 perindopril_smiles = "O=C(OCC)C(NC(C(=O)N1C(C(=O)O)CC2CCCCC12)C)CCC"
 perindopril_mol = Chem.MolFromSmiles(perindopril_smiles)
-perindopril_fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(perindopril_mol, radius=2, nBits=2048)
+perindopril_fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+    perindopril_mol, radius=2, nBits=2048
+)
 
 
 def get_scientist_prompt(topk_smiles):
@@ -40,10 +42,21 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
-def get_scientist_prompt_with_review(scientist_think_dict, reviewer_feedback_dict, previous_smiles, score, functional_groups, smiles_history, topk_smiles):
+
+def get_scientist_prompt_with_review(
+    scientist_think_dict,
+    reviewer_feedback_dict,
+    previous_smiles,
+    score,
+    functional_groups,
+    smiles_history,
+    topk_smiles,
+):
     mol = Chem.MolFromSmiles(scientist_think_dict["smiles"])
     if mol is not None:
-        test_fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, radius=2, nBits=2048)
+        test_fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+            mol, radius=2, nBits=2048
+        )
         similarity = DataStructs.TanimotoSimilarity(test_fp, perindopril_fp)
         num_aromatic_rings = rdMolDescriptors.CalcNumAromaticRings(mol)
     else:
@@ -116,10 +129,13 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
+
 def get_reviewer_prompt(scientist_think_dict, score, functional_groups):
     mol = Chem.MolFromSmiles(scientist_think_dict["smiles"])
     if mol is not None:
-        test_fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, radius=2, nBits=2048)
+        test_fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+            mol, radius=2, nBits=2048
+        )
         similarity = DataStructs.TanimotoSimilarity(test_fp, perindopril_fp)
         num_aromatic_rings = rdMolDescriptors.CalcNumAromaticRings(mol)
     else:
@@ -177,10 +193,15 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
-def get_scientist_prompt_with_double_checker_review(previous_thinking, previous_smiles, double_checker_feedback, smiles_history):
+
+def get_scientist_prompt_with_double_checker_review(
+    previous_thinking, previous_smiles, double_checker_feedback, smiles_history
+):
     mol = Chem.MolFromSmiles(previous_smiles)
     if mol is not None:
-        test_fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, radius=2, nBits=2048)
+        test_fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+            mol, radius=2, nBits=2048
+        )
         similarity = DataStructs.TanimotoSimilarity(test_fp, perindopril_fp)
         num_aromatic_rings = rdMolDescriptors.CalcNumAromaticRings(mol)
     else:
@@ -231,10 +252,13 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
+
 def get_double_checker_prompt(thinking, improved_smiles):
     mol = Chem.MolFromSmiles(improved_smiles)
     if mol is not None:
-        test_fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, radius=2, nBits=2048)
+        test_fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(
+            mol, radius=2, nBits=2048
+        )
         similarity = DataStructs.TanimotoSimilarity(test_fp, perindopril_fp)
         num_aromatic_rings = rdMolDescriptors.CalcNumAromaticRings(mol)
     else:
