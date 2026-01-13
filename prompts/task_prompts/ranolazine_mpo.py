@@ -5,6 +5,7 @@ ranolazine_smiles = "COc1ccccc1OCC(O)CN2CCN(CC(=O)Nc3c(C)cccc3C)CC2"
 ranolazine_mol = Chem.MolFromSmiles(ranolazine_smiles)
 ranolazine_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(ranolazine_mol)
 
+
 def get_scientist_prompt(topk_smiles):
     return f"""Your task is to design a SMILES string for a molecule that satisfies the following conditions:
 
@@ -39,20 +40,33 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
-def get_scientist_prompt_with_review(scientist_think_dict, reviewer_feedback_dict, previous_smiles, score, functional_groups, smiles_history, topk_smiles):
-    mol=Chem.MolFromSmiles(scientist_think_dict["smiles"])
+
+def get_scientist_prompt_with_review(
+    scientist_think_dict,
+    reviewer_feedback_dict,
+    previous_smiles,
+    score,
+    functional_groups,
+    smiles_history,
+    topk_smiles,
+):
+    mol = Chem.MolFromSmiles(scientist_think_dict["smiles"])
     if mol is not None:
-      logp = Descriptors.MolLogP(mol)
-      tpsa = Descriptors.TPSA(mol)
-      num_fluorine = sum(1 for atom in Chem.MolFromSmiles(scientist_think_dict["smiles"]).GetAtoms() if atom.GetSymbol() == 'F')
-      test_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
-      similarity = DataStructs.TanimotoSimilarity(test_fp, ranolazine_fp)
+        logp = Descriptors.MolLogP(mol)
+        tpsa = Descriptors.TPSA(mol)
+        num_fluorine = sum(
+            1
+            for atom in Chem.MolFromSmiles(scientist_think_dict["smiles"]).GetAtoms()
+            if atom.GetSymbol() == "F"
+        )
+        test_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
+        similarity = DataStructs.TanimotoSimilarity(test_fp, ranolazine_fp)
     else:
-      logp = "Invalid SMILES"
-      tpsa = "Invalid SMILES"
-      num_fluorine = "Invalid SMILES"
-      similarity = "Invalid SMILES"
-    
+        logp = "Invalid SMILES"
+        tpsa = "Invalid SMILES"
+        num_fluorine = "Invalid SMILES"
+        similarity = "Invalid SMILES"
+
     return f"""YOU MUST NOT REPEAT ANY OF THE PREVIOUSLY GENERATED SMILES:
 {smiles_history}
 
@@ -125,19 +139,24 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
+
 def get_reviewer_prompt(scientist_think_dict, score, functional_groups):
-    mol=Chem.MolFromSmiles(scientist_think_dict["smiles"])
+    mol = Chem.MolFromSmiles(scientist_think_dict["smiles"])
     if mol is not None:
-      logp = Descriptors.MolLogP(mol)
-      tpsa = Descriptors.TPSA(mol)
-      num_fluorine = sum(1 for atom in Chem.MolFromSmiles(scientist_think_dict["smiles"]).GetAtoms() if atom.GetSymbol() == 'F')
-      test_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
-      similarity = DataStructs.TanimotoSimilarity(test_fp, ranolazine_fp)
+        logp = Descriptors.MolLogP(mol)
+        tpsa = Descriptors.TPSA(mol)
+        num_fluorine = sum(
+            1
+            for atom in Chem.MolFromSmiles(scientist_think_dict["smiles"]).GetAtoms()
+            if atom.GetSymbol() == "F"
+        )
+        test_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
+        similarity = DataStructs.TanimotoSimilarity(test_fp, ranolazine_fp)
     else:
-      logp = "Invalid SMILES"
-      tpsa = "Invalid SMILES"
-      num_fluorine = "Invalid SMILES"
-      similarity = "Invalid SMILES"
+        logp = "Invalid SMILES"
+        tpsa = "Invalid SMILES"
+        num_fluorine = "Invalid SMILES"
+        similarity = "Invalid SMILES"
     return f"""Evaluate the Scientist LLM’s reasoning steps and final SMILES molecule for:
 - Validity
 - Chemical soundness
@@ -185,7 +204,10 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
-def get_scientist_prompt_with_double_checker_review(previous_thinking, previous_smiles, double_checker_feedback, smiles_history):
+
+def get_scientist_prompt_with_double_checker_review(
+    previous_thinking, previous_smiles, double_checker_feedback, smiles_history
+):
     return f"""YOU MUST NOT REPEAT ANY OF THE PREVIOUSLY GENERATED SMILES:
 {smiles_history}
 
@@ -231,19 +253,24 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
+
 def get_double_checker_prompt(thinking, improved_smiles):
-    mol=Chem.MolFromSmiles(improved_smiles)
+    mol = Chem.MolFromSmiles(improved_smiles)
     if mol is not None:
-      logp = Descriptors.MolLogP(mol)
-      tpsa = Descriptors.TPSA(mol)
-      num_fluorine = sum(1 for atom in Chem.MolFromSmiles(improved_smiles).GetAtoms() if atom.GetSymbol() == 'F')
-      test_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
-      similarity = DataStructs.TanimotoSimilarity(test_fp, ranolazine_fp)
+        logp = Descriptors.MolLogP(mol)
+        tpsa = Descriptors.TPSA(mol)
+        num_fluorine = sum(
+            1
+            for atom in Chem.MolFromSmiles(improved_smiles).GetAtoms()
+            if atom.GetSymbol() == "F"
+        )
+        test_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
+        similarity = DataStructs.TanimotoSimilarity(test_fp, ranolazine_fp)
     else:
-      logp = "Invalid SMILES"
-      tpsa = "Invalid SMILES"
-      num_fluorine = "Invalid SMILES"
-      similarity = "Invalid SMILES"
+        logp = "Invalid SMILES"
+        tpsa = "Invalid SMILES"
+        num_fluorine = "Invalid SMILES"
+        similarity = "Invalid SMILES"
     return f"""You will be given:
 - A user prompt describing the target objective,
 - The scientist’s reasoning broken into Step1 through Step3,

@@ -1,5 +1,6 @@
 import json
 
+
 def get_scientist_prompt(topk_smiles):
     return f"""Your task is to design a SMILES string for a molecule that satisfies the following condition: 
 Maximize the probability of binding to the DRD2 receptor (Dopamine Receptor D2).
@@ -35,7 +36,16 @@ Take a deep breath and think carefully before writing your answer.
 ```
 """
 
-def get_scientist_prompt_with_review(scientist_think_dict, reviewer_feedback_dict, previous_smiles, score, functional_groups, smiles_history, topk_smiles):
+
+def get_scientist_prompt_with_review(
+    scientist_think_dict,
+    reviewer_feedback_dict,
+    previous_smiles,
+    score,
+    functional_groups,
+    smiles_history,
+    topk_smiles,
+):
     return f"""YOU MUST NOT REPEAT ANY OF THE PREVIOUSLY GENERATED SMILES:
 {smiles_history}
 
@@ -91,6 +101,7 @@ Take a deep breath and think carefully before writing your answer.
 ```
 """
 
+
 def get_reviewer_prompt(scientist_think_dict, score, functional_groups):
     return f"""Evaluate the Scientist LLM's molecule for:
 - Chemical features that enhance or reduce DRD2 binding potential.
@@ -129,7 +140,10 @@ Take a deep breath and think carefully before writing your answer.
 ```
 """
 
-def get_scientist_prompt_with_double_checker_review(previous_thinking, previous_smiles, double_checker_feedback, smiles_history):
+
+def get_scientist_prompt_with_double_checker_review(
+    previous_thinking, previous_smiles, double_checker_feedback, smiles_history
+):
     return f"""YOU MUST NOT REPEAT ANY OF THE PREVIOUSLY GENERATED SMILES:
 {smiles_history}
 
@@ -169,6 +183,7 @@ Take a deep breath and think carefully before writing your answer.
 }}
 ```
 """
+
 
 def get_double_checker_prompt(thinking, improved_smiles):
     return f"""You will evaluate:

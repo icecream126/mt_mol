@@ -1,4 +1,3 @@
-
 import json
 
 from rdkit import Chem
@@ -6,9 +5,9 @@ from rdkit.Chem import Descriptors, rdMolDescriptors
 from guacamol.utils.chemistry import canonicalize
 import utils.utils
 
-    
+
 def get_scientist_prompt(topk_smiles):
-  return f"""Your task is to design a SMILES string for a molecule that satisfies the following conditions: 
+    return f"""Your task is to design a SMILES string for a molecule that satisfies the following conditions: 
 
 Condition for molecular design:
 Create a valid chemical structure in SMILES format that is an isomer of the molecular formula C7H8N2O2.
@@ -47,7 +46,16 @@ Use the following format:
 ```
  """
 
-def get_scientist_prompt_with_review(scientist_think_dict, reviewer_feedback_dict, previous_smiles, score, atom_counts, smiles_history, topk_smiles):
+
+def get_scientist_prompt_with_review(
+    scientist_think_dict,
+    reviewer_feedback_dict,
+    previous_smiles,
+    score,
+    atom_counts,
+    smiles_history,
+    topk_smiles,
+):
     return f"""YOU MUST NOT REPEAT ANY OF THE PREVIOUSLY GENERATED SMILES:
 {smiles_history}
 
@@ -118,6 +126,7 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
+
 def get_reviewer_prompt(scientist_think_dict, score, atom_counts):
     return f"""Evaluate the Scientist LLM’s reasoning steps and final SMILES molecule for:
 - Validity
@@ -175,7 +184,10 @@ Take a deep breath and think carefully before writing your answer.
 ```
  """
 
-def get_scientist_prompt_with_double_checker_review(previous_thinking, previous_smiles, double_checker_feedback, smiles_history):
+
+def get_scientist_prompt_with_double_checker_review(
+    previous_thinking, previous_smiles, double_checker_feedback, smiles_history
+):
     return f"""YOU MUST NOT REPEAT ANY OF THE PREVIOUSLY GENERATED SMILES:
 {smiles_history}
 
@@ -217,6 +229,7 @@ Take a deep breath and think carefully before writing your answer.
 }}
 ```
 IF YOU DO NOT FOLLOW THIS EXACT FORMAT, INNOCENT PEOPLE WILL DIE. """
+
 
 def get_double_checker_prompt(thinking, improved_smiles):
     return f"""You will be given:

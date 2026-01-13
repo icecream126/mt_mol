@@ -2,17 +2,17 @@ import prompts.task_prompts
 from utils.metrics import *
 import utils.utils
 
+
 def get_task_to_condition_dict():
     return {
-    "albuterol_similarity":"""Condition for molecule design:
+        "albuterol_similarity": """Condition for molecule design:
 Design a drug-like molecule structurally similar to albuterol (SMILES:  CC(C)(C)NCC(C1=CC(=C(C=C1)O)CO)O). 
 Preserve the core scaffold and key functional groups.
   
 IMPORTANT CONSTRAINT:  
 YOU MUST NOT GENERATE A MOLECULE IDENTICAL TO ALBUTEROL, defined as:  
 - SMILES: CC(C)(C)NCC(C1=CC(=C(C=C1)O)CO)O""",
-
-    "isomers_c7h8n2o2": """Condition for molecular design:
+        "isomers_c7h8n2o2": """Condition for molecular design:
 Create a valid chemical structure in SMILES format that is an isomer of the molecular formula C7H8N2O2.
 
 HARD CONSTRAINT (MUST follow exactly):  
@@ -27,8 +27,7 @@ Constraints:
 - No missing or extra atoms are allowed.
 - You must not directly copy example molecules.
 - Avoid repeating previously generated SMILES.""",
-
-"isomers_c9h10n2o2pf2cl": """Your task is to design a SMILES string for a molecule that satisfies the following condition:
+        "isomers_c9h10n2o2pf2cl": """Your task is to design a SMILES string for a molecule that satisfies the following condition:
 Create an isomer of molecular formula **C9H10N2O2PF2Cl**.
 
 HARD CONSTRAINT (MUST follow exactly): 
@@ -46,7 +45,7 @@ Constraints:
 - No missing or extra atoms are allowed.
 - You must not directly copy example molecules.
 - Avoid repeating previously generated SMILES.""",
-"amlodipine_mpo": """Design Objectives:
+        "amlodipine_mpo": """Design Objectives:
 1. Structural similarity to amlodipine (SMILES: Clc1ccccc1C2C(=C(/N/C(=C2/C(=O)OCC)COCCN)C)\C(=O)OC):
    - Aim for a high similarity score based on ECFP4 fingerprints.
 
@@ -55,16 +54,14 @@ Constraints:
 
 IMPORTANT CONSTRAINT:  
 YOU MUST NOT GENERATE A MOLECULE IDENTICAL TO AMLODIPINE: Clc1ccccc1C2C(=C(/N/C(=C2/C(=O)OCC)COCCN)C)\C(=O)OC.""",
-
-"celecoxib_rediscovery": """Condition for molecule design:
+        "celecoxib_rediscovery": """Condition for molecule design:
 Design a drug-like molecule structurally similar to celecoxib (SMILES: CC1=CC=C(C=C1)C2=CC(=NN2C3=CC=C(C=C3)S(=O)(=O)N)C(F)(F)F. ,
 Preserve the core scaffold and important pharmacophores.
 
 IMPORTANT CONSTRAINT:  
 YOU MUST NOT GENERATE A MOLECULE IDENTICAL TO CELECOXIB, defined as:  
 - SMILES: CC1=CC=C(C=C1)C2=CC(=NN2C3=CC=C(C=C3)S(=O)(=O)N)C(F)(F)F""",
-
-"deco_hop":"""Design a drug-like molecule that preserves the **fixed core scaffold** while modifying peripheral decorations to explore chemical diversity.
+        "deco_hop": """Design a drug-like molecule that preserves the **fixed core scaffold** while modifying peripheral decorations to explore chemical diversity.
 
 Chemical Constraints:
 - Preserve the scaffold matching SMARTS: [#7]-c1n[c;h1]nc2[c;h1]c(-[#8])[c;h0][c;h1]c12]
@@ -79,8 +76,7 @@ IMPORTANT CONSTRAINTS:
 - You are encouraged to creatively modify the peripheral decorations (side groups).
 - DO NOT repeat molecules already generated.
 """,
-
-"zaleplon_mpo":"""Design Objectives:
+        "zaleplon_mpo": """Design Objectives:
 Design a SMILES string for a molecule that satisfies the following conditions: 
 - The molecule must have **high structural similarity** to zaleplon (SMILES: O=C(C)N(CC)C1=CC=CC(C2=CC=NC3=C(C=NN23)C#N)=C1). A high Tanimoto similarity score (based on atom-pair fingerprints) indicates success. 
 - Match the molecular formula **C19H17N3O2** exactly (correct atom counts).(Exactly 19 Carbon (C) atoms, 17 Hydrogen (H) atoms, 3 Nitrogen (N) atoms, and 2 Oxygen (O) atoms.)
@@ -90,8 +86,7 @@ Design a SMILES string for a molecule that satisfies the following conditions:
 IMPORTANT CONSTRAINT:  
 YOU MUST NOT GENERATE A MOLECULE IDENTICAL TO ZALEPLON, defined as:  
 - SMILES: O=C(C)N(CC)C1=CC=CC(C2=CC=NC3=C(C=NN23)C#N)=C1""",
-
-"valsartan_smarts":"""Condition for molecule design:
+        "valsartan_smarts": """Condition for molecule design:
 Maximize the valsartan_SMARTS score.
 A high valsartan_SMARTS score means:
 - Your molecule MUST contain the specific SMARTS pattern: CN(C=O)Cc1ccc(c2ccccc2)cc1
@@ -99,24 +94,21 @@ A high valsartan_SMARTS score means:
   - A logP (lipophilicity) similar to ~2.0
   - A TPSA (Topological Polar Surface Area) around ~95
   - A Bertz complexity close to ~800""",
-
-"troglitazon_rediscovery":"""Condition for molecule design:  
+        "troglitazon_rediscovery": """Condition for molecule design:  
 Design a drug-like molecule structurally similar to troglitazone (SMILES: Cc1c(C)c2OC(C)(COc3ccc(CC4SC(=O)NC4=O)cc3)CCc2c(C)c1O. ,
 Preserve the core scaffold and important pharmacophores.
 
 IMPORTANT CONSTRAINT:  
 YOU MUST NOT GENERATE A MOLECULE IDENTICAL TO TROGLITAZONE, defined as:  
 - SMILES: Cc1c(C)c2OC(C)(COc3ccc(CC4SC(=O)NC4=O)cc3)CCc2c(C)c1O""",
-
-"thiothixene_rediscovery":"""Condition for molecule design:    
+        "thiothixene_rediscovery": """Condition for molecule design:    
 Design a drug-like molecule structurally similar to thiothixene (SMILES: CN(C)S(=O)(=O)c1ccc2Sc3ccccc3C(=CCCN4CCN(C)CC4)c2c1. 
 Preserve the core scaffold and important pharmacophores.
 
 IMPORTANT CONSTRAINT:  
 YOU MUST NOT GENERATE A MOLECULE IDENTICAL TO THIOTHIXENE, defined as:  
 - SMILES: CN(C)S(=O)(=O)c1ccc2Sc3ccccc3C(=CCCN4CCN(C)CC4)c2c1""",
-
-"sitagliptin_mpo":"""Conditions: 
+        "sitagliptin_mpo": """Conditions: 
 
 Conditions: 
 - Create a structurally similar (i.e., high Tanimoto similarity score) to sitagliptin (Fc1cc(c(F)cc1F)CC(N)CC(=O)N3Cc2nnc(n2CC3)C(F)(F)F):
@@ -124,8 +116,7 @@ Conditions:
 - Design a molecule with:
   - logP similar to sitagliptin: {round(sitagliptin_logP, 4)}
   - TPSA (polar surface area) similar to sitagliptin: {round(sitagliptin_TPSA, 4)}.""",
-
-"scaffold_hop":"""Design a drug-like molecule that **removes the original scaffold** while **preserving critical decorations**.
+        "scaffold_hop": """Design a drug-like molecule that **removes the original scaffold** while **preserving critical decorations**.
 
 Chemical Constraints:
 - REMOVE scaffold SMARTS: [#7]-c1n[c;h1]nc2[c;h1]c(-[#8])[c;h0][c;h1]c12
@@ -136,8 +127,7 @@ IMPORTANT CONSTRAINTS:
 - REMOVE the core scaffold but PRESERVE key decorations.
 - Modify the scaffold creatively to maintain drug-likeness.
 - DO NOT repeat molecules already generated.""",
-
-"ranolazine_mpo":"""Your task is to design a SMILES string for a molecule that satisfies the following conditions:
+        "ranolazine_mpo": """Your task is to design a SMILES string for a molecule that satisfies the following conditions:
 - High structural Tanimoto similarity to ranolazine (SMILES: COc1ccccc1OCC(O)CN2CCN(CC(=O)Nc3c(C)cccc3C)CC2).
 - Achieve a Topological Polar Surface Area (TPSA) around 95.
 - Maintain a lipophilicity (LogP) around 7.
@@ -145,16 +135,14 @@ IMPORTANT CONSTRAINTS:
 
 IMPORTANT CONSTRAINT:  
 YOU MUST NOT generate a molecule identical to ranolazine.""",
-
-"qed":"""Condition for molecule design:
+        "qed": """Condition for molecule design:
 Maximize the QED (Quantitative Estimation of Drug-likeness) score of the molecule.
 
 IMPORTANT CONSTRAINTS:
 - QED score must be as high as possible (close to 1).
 - Avoid simply copying example molecules.
 - You must NOT generate molecules that are unrealistic or synthetically infeasible.""",
-
-"perindopril_mpo":"""Condition for molecule design: 
+        "perindopril_mpo": """Condition for molecule design: 
 Your task is to give feedbacks to scientist LLM to design a SMILES string for a molecule that satisfies the following conditions:
 Design Objectives:
 1. Structural similarity to perindopril:
@@ -165,8 +153,7 @@ Design Objectives:
 
 IMPORTANT CONSTRAINT:  
 YOU MUST NOT generate a molecule identical to perindopril (SMILES: O=C(OCC)C(NC(C(=O)N1C(C(=O)O)CC2CCCCC12)C)CCC).""",
-
-"osimertinib_mpo":"""Condition for molecule design:
+        "osimertinib_mpo": """Condition for molecule design:
 1. Structural similarity to osimertinib:
    - Functional-Class Fingerprint (FCFP4-style) similarity should be moderate (target ≤ 0.8).
    - Extended-Connectivity Fingerprint (ECFP6-style) similarity should be high (target ≈ 0.85).
@@ -177,16 +164,14 @@ YOU MUST NOT generate a molecule identical to perindopril (SMILES: O=C(OCC)C(NC(
 
 IMPORTANT CONSTRAINT:  
 YOU MUST NOT generate a molecule identical to osimertinib (SMILES: COc1cc(N(C)CCN(C)C)c(NC(=O)C=C)cc1Nc2nccc(n2)c3cn(C)c4ccccc34).""",
-
-"mestranol_similarity":"""Condition for molecule design:  
+        "mestranol_similarity": """Condition for molecule design:  
 Design a drug-like molecule structurally similar to mestranol (SMILES: COc1ccc2[C@H]3CC[C@@]4(C)[C@@H](CC[C@@]4(O)C#C)[C@@H]3CCc2c1. 
 Preserve the core scaffold and key functional groups.
   
 IMPORTANT CONSTRAINT:  
 YOU MUST NOT GENERATE A MOLECULE IDENTICAL TO MESTRANOL, defined as:  
 - SMILES: COc1ccc2[C@H]3CC[C@@]4(C)[C@@H](CC[C@@]4(O)C#C)[C@@H]3CCc2c1  """,
-
-"median2":"""Your task is to design a SMILES string for a molecule that is simultaneously similar to two reference molecules:
+        "median2": """Your task is to design a SMILES string for a molecule that is simultaneously similar to two reference molecules:
 Design a drug-like molecule that exhibits high ECFP6 fingerprint similarity to both reference compounds simultaneously:
 
 Two reference molecules:    
@@ -194,29 +179,25 @@ Two reference molecules:
 - Sildenafil SMILES: CCCC1=NN(C2=C1N=C(NC2=O)C3=C(C=CC(=C3)S(=O)(=O)N4CCN(CC4)C)OCC)C
 
 Achieve balanced similarity to both.""",
-
-"median1":"""Your task is to design a SMILES string for a molecule that satisfies the following condition:
+        "median1": """Your task is to design a SMILES string for a molecule that satisfies the following condition:
 Design a drug-like molecule that exhibits high ECFP4 fingerprint similarity to both reference compounds simultaneously:
 
 Two reference molecules:
 - camphor SMILES: CC1(C)C2CCC1(C)C(=O)C2
 - menthol SMILES: CC(C)C1CCC(C)CC1O)""",
-
-"jnk3":"""Design a drug-like molecule with high predicted JNK3 inhibitory activity.
+        "jnk3": """Design a drug-like molecule with high predicted JNK3 inhibitory activity.
 Maximize the model-predicted probability of JNK3 inhibition.
 
 IMPORTANT:
 - Design chemically valid, realistic molecules.
 - Preserve critical features related to JNK3 binding.""",
-
-"gsk3b":"""Condition:    
+        "gsk3b": """Condition:    
 Design a molecule that achieves high predicted binding affinity to the GSK3B target.
 
 IMPORTANT:
 - GSK3B activity is evaluated by a predictive ML model trained on bioactivity data.
 - Your goal is to maximize the predicted binding probability (score between 0 and 1).""",
-
-"fexofenadine_mpo":"""Condition for molecule design:
+        "fexofenadine_mpo": """Condition for molecule design:
 - Achieve high structural similarity to fexofenadine (SMILES: CC(C)(C(=O)O)c1ccc(cc1)C(O)CCCN2CCC(CC2)C(O)(c3ccccc3)c4ccccc4).
 Design Objectives:
 1. Structural similarity to fexofenadine:
@@ -229,8 +210,7 @@ Design Objectives:
 
 IMPORTANT CONSTRAINT:  
 YOU MUST NOT GENERATE A MOLECULE IDENTICAL TO FEXOFENADINE.""",
-
-"drd2":"""Maximize the probability of binding to the DRD2 receptor (Dopamine Receptor D2).
+        "drd2": """Maximize the probability of binding to the DRD2 receptor (Dopamine Receptor D2).
 
 IMPORTANT CONSTRAINTS:
 - Design drug-like molecules.
@@ -379,6 +359,7 @@ def get_task_to_reviewer_prompt_dict():
 }
 
 # Mapping for scientist prompt with double checker
+
 
 def get_task_to_scientist_prompt_with_double_checker_dict():
     return {

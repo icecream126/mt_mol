@@ -28,70 +28,87 @@ def get_deco_hop_score(smiles: str):
     oracle = Oracle(name = 'Deco Hop')
     return oracle(smiles)
 
+
 def get_drd2_score(smiles: str):
-    oracle = Oracle(name='DRD2')
+    oracle = Oracle(name="DRD2")
     return oracle(smiles)
+
 
 def get_fexofenadine_mpo_score(smiles: str):
-    oracle = Oracle(name = 'Fexofenadine_MPO')
+    oracle = Oracle(name="Fexofenadine_MPO")
     return oracle(smiles)
+
 
 def get_gsk3b_score(smiles: str):
-    oracle = Oracle(name = 'GSK3B')
+    oracle = Oracle(name="GSK3B")
     return oracle(smiles)
+
 
 def get_jnk3_score(smiles: str):
-    oracle = Oracle(name = 'JNK3')
+    oracle = Oracle(name="JNK3")
     return oracle(smiles)
+
 
 def get_median1_score(smiles: str):
-    oracle = Oracle(name = 'Median 1')
+    oracle = Oracle(name="Median 1")
     return oracle(smiles)
+
 
 def get_median2_score(smiles: str):
-    oracle = Oracle(name = 'Median 2')
+    oracle = Oracle(name="Median 2")
     return oracle(smiles)
+
 
 def get_mestranol_similarity_score(smiles: str):
-    oracle = Oracle(name = 'Mestranol_Similarity')
+    oracle = Oracle(name="Mestranol_Similarity")
     return oracle(smiles)
+
 
 def get_osimertinib_mpo_score(smiles: str):
-    oracle = Oracle(name = 'Osimertinib_MPO')
+    oracle = Oracle(name="Osimertinib_MPO")
     return oracle(smiles)
+
 
 def get_perindopril_mpo_score(smiles: str):
-    oracle = Oracle(name = 'Perindopril_MPO')
+    oracle = Oracle(name="Perindopril_MPO")
     return oracle(smiles)
+
 
 def get_qed_score(smiles: str):
-    oracle = Oracle(name = 'QED')
+    oracle = Oracle(name="QED")
     return oracle(smiles)
+
 
 def get_ranolazine_mpo_score(smiles: str):
-    oracle = Oracle(name = 'Ranolazine_MPO')
+    oracle = Oracle(name="Ranolazine_MPO")
     return oracle(smiles)
+
 
 def get_scaffold_hop_score(smiles: str):
-    oracle = Oracle(name = 'Scaffold Hop')
+    oracle = Oracle(name="Scaffold Hop")
     return oracle(smiles)
+
 
 def get_sitagliptin_mpo_score(smiles: str):
-    oracle = Oracle(name = 'Sitagliptin_MPO')
+    oracle = Oracle(name="Sitagliptin_MPO")
     return oracle(smiles)
+
 
 def get_thiothixene_rediscovery_score(smiles: str):
-    oracle = Oracle(name = 'Thiothixene_Rediscovery')
+    oracle = Oracle(name="Thiothixene_Rediscovery")
     return oracle(smiles)
+
 
 def get_troglitazon_rediscovery_score(smiles: str):
-    oracle = Oracle(name = 'Troglitazone_Rediscovery')
+    oracle = Oracle(name="Troglitazone_Rediscovery")
     return oracle(smiles)
+
 
 def get_valsartan_smarts_score(smiles: str):
-    oracle = Oracle(name = 'Valsartan_SMARTS')
+    oracle = Oracle(name="Valsartan_SMARTS")
     return oracle(smiles)
 
+
 def get_zaleplon_mpo_score(smiles: str):
-    oracle = Oracle(name = 'Zaleplon_MPO')
+    oracle = Oracle(name="Zaleplon_MPO")
     return oracle(smiles)

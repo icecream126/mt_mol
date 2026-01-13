@@ -40,17 +40,26 @@ Take a deep breath and think carefully before writing your answer.
 ```
 """
 
-def get_scientist_prompt_with_review(scientist_think_dict, reviewer_feedback_dict, previous_smiles, score, functional_groups, smiles_history, topk_smiles):
-    mol=Chem.MolFromSmiles(scientist_think_dict["smiles"])
+
+def get_scientist_prompt_with_review(
+    scientist_think_dict,
+    reviewer_feedback_dict,
+    previous_smiles,
+    score,
+    functional_groups,
+    smiles_history,
+    topk_smiles,
+):
+    mol = Chem.MolFromSmiles(scientist_think_dict["smiles"])
     if mol is not None:
-      logp = Descriptors.MolLogP(mol)
-      tpsa = Descriptors.TPSA(mol)
-      test_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
-      similarity = DataStructs.TanimotoSimilarity(test_fp, sitagliptin_fp)
+        logp = Descriptors.MolLogP(mol)
+        tpsa = Descriptors.TPSA(mol)
+        test_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
+        similarity = DataStructs.TanimotoSimilarity(test_fp, sitagliptin_fp)
     else:
-      logp = "Invalid SMILES"
-      tpsa = "Invalid SMILES"
-      similarity = "Invalid SMILES"
+        logp = "Invalid SMILES"
+        tpsa = "Invalid SMILES"
+        similarity = "Invalid SMILES"
     return f"""YOU MUST NOT REPEAT ANY OF THE PREVIOUSLY GENERATED SMILES:
 {smiles_history}
 
@@ -124,17 +133,18 @@ Take a deep breath and think carefully before writing your answer.
 ```
 """
 
+
 def get_reviewer_prompt(scientist_think_dict, score, functional_groups):
-    mol=Chem.MolFromSmiles(scientist_think_dict["smiles"])
+    mol = Chem.MolFromSmiles(scientist_think_dict["smiles"])
     if mol is not None:
-      logp = Descriptors.MolLogP(mol)
-      tpsa = Descriptors.TPSA(mol)
-      test_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
-      similarity = DataStructs.TanimotoSimilarity(test_fp, sitagliptin_fp)
+        logp = Descriptors.MolLogP(mol)
+        tpsa = Descriptors.TPSA(mol)
+        test_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
+        similarity = DataStructs.TanimotoSimilarity(test_fp, sitagliptin_fp)
     else:
-      logp = "Invalid SMILES"
-      tpsa = "Invalid SMILES"
-      similarity = "Invalid SMILES"
+        logp = "Invalid SMILES"
+        tpsa = "Invalid SMILES"
+        similarity = "Invalid SMILES"
     return f"""Evaluate the Scientist LLM’s reasoning steps and final SMILES molecule for:
 - Validity
 - Chemical soundness
@@ -185,17 +195,20 @@ Take a deep breath and think carefully before writing your answer.
 ```
 """
 
-def get_scientist_prompt_with_double_checker_review(previous_thinking, previous_smiles, double_checker_feedback, smiles_history):
-    mol=Chem.MolFromSmiles(previous_smiles)
+
+def get_scientist_prompt_with_double_checker_review(
+    previous_thinking, previous_smiles, double_checker_feedback, smiles_history
+):
+    mol = Chem.MolFromSmiles(previous_smiles)
     if mol is not None:
-      logp = Descriptors.MolLogP(mol)
-      tpsa = Descriptors.TPSA(mol)
-      test_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
-      similarity = DataStructs.TanimotoSimilarity(test_fp, sitagliptin_fp)
+        logp = Descriptors.MolLogP(mol)
+        tpsa = Descriptors.TPSA(mol)
+        test_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
+        similarity = DataStructs.TanimotoSimilarity(test_fp, sitagliptin_fp)
     else:
-      logp = "Invalid SMILES"
-      tpsa = "Invalid SMILES"
-      similarity = "Invalid SMILES"
+        logp = "Invalid SMILES"
+        tpsa = "Invalid SMILES"
+        similarity = "Invalid SMILES"
     return f"""YOU MUST NOT REPEAT ANY OF THE PREVIOUSLY GENERATED SMILES:
 {smiles_history}
 
@@ -244,17 +257,18 @@ Take a deep breath and think carefully before writing your answer.
 ```
 """
 
+
 def get_double_checker_prompt(thinking, improved_smiles):
-    mol=Chem.MolFromSmiles(improved_smiles)
+    mol = Chem.MolFromSmiles(improved_smiles)
     if mol is not None:
-      logp = Descriptors.MolLogP(mol)
-      tpsa = Descriptors.TPSA(mol)
-      test_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
-      similarity = DataStructs.TanimotoSimilarity(test_fp, sitagliptin_fp)
+        logp = Descriptors.MolLogP(mol)
+        tpsa = Descriptors.TPSA(mol)
+        test_fp = rdMolDescriptors.GetHashedAtomPairFingerprintAsBitVect(mol)
+        similarity = DataStructs.TanimotoSimilarity(test_fp, sitagliptin_fp)
     else:
-      logp = "Invalid SMILES"
-      tpsa = "Invalid SMILES"
-      similarity = "Invalid SMILES"
+        logp = "Invalid SMILES"
+        tpsa = "Invalid SMILES"
+        similarity = "Invalid SMILES"
     return f"""You will be given:
 - A user prompt describing the target objective,
 - The scientist’s reasoning broken into Step1 through Step3,
@@ -300,5 +314,3 @@ Use the following format:
 }}
 ```
 """
-
-
