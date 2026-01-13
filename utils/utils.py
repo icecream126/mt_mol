@@ -147,42 +147,6 @@ def update_topk_smiles(topk_smiles, new_entry, k=100):
             topk_smiles = topk_smiles[:k]
     return topk_smiles
 
-# def run_pubchem_functions(function_names, smiles, utils_path="/home/anonymous/mt_mol/utils/utils.py"):
-#     """
-#     Dynamically loads functions from utils.py and executes them with the given SMILES.
-    
-#     Args:
-#         function_names (list of str): List of function names to call.
-#         smiles (str): SMILES string input for the functions.
-#         utils_path (str): Path to the utils.py file containing the functions.
-    
-#     Returns:
-#         str: Structured output showing each function name and its result.
-#     """
-#     # Load the module dynamically
-#     module_name = "chem_utils"
-#     spec = importlib.util.spec_from_file_location(module_name, utils_path)
-#     utils_module = importlib.util.module_from_spec(spec)
-#     sys.modules[module_name] = utils_module
-#     spec.loader.exec_module(utils_module)
-
-#     output = []
-
-#     for fn_name in function_names:
-#         if hasattr(utils_module, fn_name):
-#             func = getattr(utils_module, fn_name)
-#             try:
-#                 result = func(smiles)
-#                 formatted = f"[{fn_name}]\n{result.strip()}"
-#             except Exception as e:
-#                 formatted = f"[{fn_name}] - ERROR: {e}"
-#         else:
-#             formatted = f"[{fn_name}] - NOT FOUND"
-        
-#         output.append(formatted)
-
-#     return "\n\n".join(output)
-
 def run_pubchem_functions(function_names, smiles, utils_path="/home/anonymous/mt_mol/utils/utils.py"):
     """
     Dynamically loads functions from utils.py and executes them with the given SMILES.
@@ -259,13 +223,6 @@ def safe_llm_call(prompt, llm, llm_type, llm_temperature, max_retries=10, sleep_
     return {}, ""
 
 
-def format_topk_smiles_emitters(topk_smiles):
-
-    formatted = "\n".join(
-        f"({repr(smiles.strip())}, single-triplet value: {st:.6f}, oscillator strength: {osc:.6f}, combined objective: {combined:.6f})"
-        for smiles, st, osc, combined in topk_smiles
-    )
-    return formatted
 
 def format_topk_smiles(topk_smiles):
 
