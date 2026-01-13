@@ -1,5 +1,4 @@
 import prompts.task_prompts
-import prompts.task_prompts.opv_pce_pcbm
 from utils.metrics import *
 import utils.utils
 
@@ -237,93 +236,7 @@ IMPORTANT CONSTRAINTS:
 - Design drug-like molecules.
 - Maximize the DRD2 binding score as high as possible.
 - Avoid generating identical structures to provided examples.
-- Avoid repeating molecules you already generated.""",
-
-"opv_pce_pcdtbt":"""Condition for Molecular Design:
-Design a molecule suitable for use as an organic photovoltaic (OPV) material, with the goal of maximizing the following composite objective:
-
-Objective = PCE_PCDTBT - SAscore, where:
-- PCE_PCDTBT: Power Conversion Efficiency of the molecule when paired with PCDTBT as the donor.
-- SAscore: Synthetic Accessibility score (penalizes difficult-to-synthesize molecules).
-
-Your molecule should:
-- Achieve high PCE_PCDTBT in both settings.
-- Have low SAscore (simple, stable, synthetically feasible structure).
-
- Desirable features to increase PCE_PCDTBT and decrease SAscore:
-- Strong Donor-Acceptor (D-A) character for charge separation.
-- Extended conjugation for charge transport.
-- Planar structure for π-π stacking.
-- Alkyl chains (e.g., octyl, hexyl) for solubility and processability.
-- Avoid excessive rings or rare functional groups that increase synthetic complexity.
-- Use commonly studied OPV substructures (see below).
-
-Helpful Building Blocks:
-- Donor units: thiophene (C1=CSC=C1), fluorene, triphenylamine.
-- Acceptor units: benzothiadiazole (C1=CC2=NSN=C2C=C1), diketopyrrolopyrrole (DPP).
-- Side chains: linear or branched alkyl chains (e.g., CCCCOCC, CCCCCCCCC).""",
-
-"opv_pce_pcbm":"""Condition for Molecular Design:
-Design a molecule suitable for use as an organic photovoltaic (OPV) material, with the goal of maximizing the following composite objective:
-
-Objective = PCE_PCBM - SAscore, where:
-- PCE_PCBM: Power Conversion Efficiency of the molecule when paired with PCBM as the acceptor.
-- SAscore: Synthetic Accessibility score (penalizes difficult-to-synthesize molecules).
-
-Your molecule should:
-- Achieve high PCE_PCBM.
-- Have low SAscore (simple, stable, synthetically feasible structure).
-
- Desirable features to increase PCE_PCBM and decrease SAscore:
-- Strong Donor-Acceptor (D-A) character for charge separation.
-- Extended conjugation for charge transport.
-- Planar structure for π-π stacking.
-- Alkyl chains (e.g., octyl, hexyl) for solubility and processability.
-- Avoid excessive rings or rare functional groups that increase synthetic complexity.
-- Use commonly studied OPV substructures (see below).
-
-Helpful Building Blocks:
-- Donor units: thiophene (C1=CSC=C1), fluorene, triphenylamine.
-- Acceptor units: benzothiadiazole (C1=CC2=NSN=C2C=C1), diketopyrrolopyrrole (DPP).
-- Side chains: linear or branched alkyl chains (e.g., CCCCOCC, CCCCCCCCC).
-""",
-
-"emitters":"""Condition for Molecular Design:
-Achieve the following three objectives to achieve a light-emitting molecule with high quantum efficiency and blue-light emission capability:
-
-Objective 1
-- Name: Oscillator strength 
-- Notation: f12
-- Goal: HIGHER IS BETTER
-
-Objective 2
-- Name: Singlet-triplet energy gap
-- Notation: ΔE(S1 - T1)
-- Goal: SMALLER IS BETTER
-
-Objective 3
-- Name: Composite Objective
-- Notation: +f12 - ΔE(S1 - T1) - |ΔE(S0 - S1) - 3.2 eV|
-- Goal: HIGHER IS BETTER
-
-Your molecule should:
-- Emit light efficiently (maximize f12),
-- Minimize the singlet-triplet gap (ΔE(S1 - T1) ≈ 0 eV),
-- Target excitation energy around 3.2 eV for blue light emission,
-- Avoid overly complex or synthetically inaccessible motifs (e.g., large rings, rare atoms),
-- Be stable and realistically synthesizable (implicitly guided by structure).
-
-Helpful Design Principles:
-- Planar conjugated systems increase f12 and stabilize excited states,
-- Rigid aromatic rings and π-bridges promote high emission and reduce vibrational loss,
-- Small ΔE(S1-T1) enhances TADF via reverse intersystem crossing (RISC),
-- Electron-donating and withdrawing groups can tune excitation properties.
-
-Example building blocks (SMILES):
-- Electron donors: triphenylamine C1=CC=C(C=C1)N(C2=CC=CC=C2)C3=CC=CC=C3, carbazole C1=CC=C2C(=C1)C3=CC=CC=C3N2
-- Electron acceptors: benzothiadiazole C1=CC2=NSN=C2C=C1, triazine C1=CN=NN=C1
-- π-spacers: thiophene C1=CSC=C1"""
-
+- Avoid repeating molecules you already generated."""
 }
 
 # Mapping for retrieval_node datasets
@@ -380,9 +293,6 @@ def get_task_to_score_dict():
     "troglitazon_rediscovery": get_troglitazon_rediscovery_score,
     "valsartan_smarts": get_valsartan_smarts_score,
     "zaleplon_mpo": get_zaleplon_mpo_score,
-    "opv_pce_pcbm": get_opv_score,
-    "opv_pce_pcdtbt": get_opv_score,
-    "emitters": get_emitters_score,
 }
 
 # Mapping for scientist prompt functions
@@ -411,9 +321,6 @@ def get_task_to_scientist_prompt_dict():
     "troglitazon_rediscovery": prompts.task_prompts.troglitazon_rediscovery.get_scientist_prompt,
     "valsartan_smarts": prompts.task_prompts.valsartan_smarts.get_scientist_prompt,
     "zaleplon_mpo": prompts.task_prompts.zaleplon_mpo.get_scientist_prompt,
-    "opv_pce_pcbm": prompts.task_prompts.opv_pce_pcbm.get_scientist_prompt,
-    "opv_pce_pcdtbt": prompts.task_prompts.opv_pce_pcdtbt.get_scientist_prompt,
-    "emitters": prompts.task_prompts.emitters.get_scientist_prompt,
 }
 
 # Mapping for scientist prompt with reviewer
@@ -441,11 +348,7 @@ def get_task_to_scientist_prompt_with_review_dict():
     "thiothixene_rediscovery": prompts.task_prompts.thiothixene_rediscovery.get_scientist_prompt_with_review,
     "troglitazon_rediscovery": prompts.task_prompts.troglitazon_rediscovery.get_scientist_prompt_with_review,
     "valsartan_smarts": prompts.task_prompts.valsartan_smarts.get_scientist_prompt_with_review,
-    "zaleplon_mpo": prompts.task_prompts.zaleplon_mpo.get_scientist_prompt_with_review,
-    "opv_pce_pcbm": prompts.task_prompts.opv_pce_pcbm.get_scientist_prompt_with_review,
-    "opv_pce_pcdtbt": prompts.task_prompts.opv_pce_pcdtbt.get_scientist_prompt_with_review,
-    "emitters": prompts.task_prompts.emitters.get_scientist_prompt_with_review,
-
+    "zaleplon_mpo": prompts.task_prompts.zaleplon_mpo.get_scientist_prompt_with_review
 }
 
 def get_task_to_reviewer_prompt_dict():
@@ -473,9 +376,6 @@ def get_task_to_reviewer_prompt_dict():
     "troglitazon_rediscovery": prompts.task_prompts.troglitazon_rediscovery.get_reviewer_prompt,
     "valsartan_smarts": prompts.task_prompts.valsartan_smarts.get_reviewer_prompt,
     "zaleplon_mpo": prompts.task_prompts.zaleplon_mpo.get_reviewer_prompt,
-    "opv_pce_pcbm": prompts.task_prompts.opv_pce_pcbm.get_reviewer_prompt,
-    "opv_pce_pcdtbt": prompts.task_prompts.opv_pce_pcdtbt.get_reviewer_prompt,
-    "emitters": prompts.task_prompts.emitters.get_reviewer_prompt,
 }
 
 # Mapping for scientist prompt with double checker
@@ -505,9 +405,6 @@ def get_task_to_scientist_prompt_with_double_checker_dict():
     "troglitazon_rediscovery": prompts.task_prompts.troglitazon_rediscovery.get_scientist_prompt_with_double_checker_review,
     "valsartan_smarts": prompts.task_prompts.valsartan_smarts.get_scientist_prompt_with_double_checker_review,
     "zaleplon_mpo": prompts.task_prompts.zaleplon_mpo.get_scientist_prompt_with_double_checker_review,
-    "opv_pce_pcbm": prompts.task_prompts.opv_pce_pcbm.get_scientist_prompt_with_double_checker_review,
-    "opv_pce_pcdtbt": prompts.task_prompts.opv_pce_pcdtbt.get_scientist_prompt_with_double_checker_review,
-    "emitters": prompts.task_prompts.emitters.get_scientist_prompt_with_double_checker_review,
 }
 
 def get_task_to_double_checker_prompt_dict():
@@ -535,9 +432,6 @@ def get_task_to_double_checker_prompt_dict():
     "troglitazon_rediscovery": prompts.task_prompts.troglitazon_rediscovery.get_double_checker_prompt,
     "valsartan_smarts": prompts.task_prompts.valsartan_smarts.get_double_checker_prompt,
     "zaleplon_mpo": prompts.task_prompts.zaleplon_mpo.get_double_checker_prompt,
-    "opv_pce_pcbm": prompts.task_prompts.opv_pce_pcbm.get_double_checker_prompt,
-    "opv_pce_pcdtbt": prompts.task_prompts.opv_pce_pcdtbt.get_double_checker_prompt,
-    "emitters": prompts.task_prompts.emitters.get_double_checker_prompt,
 }
 
 def get_task_to_functional_group_dict():
@@ -566,5 +460,4 @@ def get_task_to_functional_group_dict():
     "valsartan_smarts": utils.utils.describe_valsartan_features,
     "zaleplon_mpo": utils.utils.describe_zaleplon_features,
     
-    # TODO: opv, OLED,
 }
