@@ -147,7 +147,7 @@ def update_topk_smiles(topk_smiles, new_entry, k=100):
             topk_smiles = topk_smiles[:k]
     return topk_smiles
 
-# def run_pubchem_functions(function_names, smiles, utils_path="/home/anonymous/chemiloop/utils/utils.py"):
+# def run_pubchem_functions(function_names, smiles, utils_path="/home/anonymous/mt_mol/utils/utils.py"):
 #     """
 #     Dynamically loads functions from utils.py and executes them with the given SMILES.
     
@@ -183,7 +183,7 @@ def update_topk_smiles(topk_smiles, new_entry, k=100):
 
 #     return "\n\n".join(output)
 
-def run_pubchem_functions(function_names, smiles, utils_path="/home/anonymous/chemiloop/utils/utils.py"):
+def run_pubchem_functions(function_names, smiles, utils_path="/home/anonymous/mt_mol/utils/utils.py"):
     """
     Dynamically loads functions from utils.py and executes them with the given SMILES.
     

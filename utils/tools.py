@@ -231,7 +231,7 @@ class RingSystemLookup:
         if ring_file is None:
             # url = f'https://github.com/PatWalters/useful_rdkit_utils/tree/master/data/{ring_csv_name}'
 
-            self.rule_path = '/home/anonymous/chemiloop/dataset/chembl_ring_systems.csv'
+            self.rule_path = '/home/anonymous/mt_mol/dataset/chembl_ring_systems.csv'
         else:
             self.rule_path = ring_file
         self.ignore_stereo = ignore_stereo
@@ -705,7 +705,6 @@ def smr_vsa_(smiles, bins=None, force=None):
 
 def slogp_vsa_(smiles, bins=None, force=None):
     return rdMolDescriptors.SlogP_VSA_(Chem.MolFromSmiles(smiles), bins, force)
-
 if __name__=="__main__":
 
     import inspect
@@ -738,4 +737,5 @@ if __name__=="__main__":
     print(f"calc_labute_asa: {calclabuteasa(mol)}")
     print(f"calc_crippen_descriptors: {calccrippendescriptors(mol)}")
     print(f"get_connectivity_invariants: {getconnectivityinvariants(mol)}")
+
 

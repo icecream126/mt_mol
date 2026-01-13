@@ -4,33 +4,30 @@ from ..prompts import task_prompts
 
 # Mapping for retrieval_node datasets
 TASK_TO_DATASET_PATH = {
-    "albuterol_similarity": "/home/anonymous/chemiloop/dataset/250k_top_5/albuterol_similarity_score.json",
-    "isomers_c7h8n2o2": "/home/anonymous/chemiloop/dataset/250k_top_5/isomers_c7h8n2o2_score.json",
-    "isomers_c9h10n2o2pf2cl": "/home/anonymous/chemiloop/dataset/250k_top_5/isomers_c9h10n2o2pf2cl_score.json",
-    "amlodipine_mpo": "/home/anonymous/chemiloop/dataset/250k_top_5/amlodipine_mpo_score.json",
-    "celecoxib_rediscovery": "/home/anonymous/chemiloop/dataset/250k_top_5/celecoxib_rediscovery_score.json",
-    "deco_hop": "/home/anonymous/chemiloop/dataset/250k_top_5/deco_hop_score.json",
-    "drd2": "/home/anonymous/chemiloop/dataset/250k_top_5/drd2_score.json",
-    "fexofenadine_mpo": "/home/anonymous/chemiloop/dataset/250k_top_5/fexofenadine_mpo_score.json",
-    "gsk3b": "/home/anonymous/chemiloop/dataset/250k_top_5/gsk3b_score.json",
-    "jnk3": "/home/anonymous/chemiloop/dataset/250k_top_5/jnk3_score.json",
-    "median1": "/home/anonymous/chemiloop/dataset/250k_top_5/median1_score.json",
-    "median2": "/home/anonymous/chemiloop/dataset/250k_top_5/median2_score.json",
-    "mestranol_similarity": "/home/anonymous/chemiloop/dataset/250k_top_5/mestranol_similarity_score.json",
-    "osimertinib_mpo": "/home/anonymous/chemiloop/dataset/250k_top_5/osimertinib_mpo_score.json",
-    "perindopril_mpo": "/home/anonymous/chemiloop/dataset/250k_top_5/perindopril_mpo_score.json",
-    "qed": "/home/anonymous/chemiloop/dataset/250k_top_5/qed_score.json",
-    "ranolazine_mpo": "/home/anonymous/chemiloop/dataset/250k_top_5/ranolazine_mpo_score.json",
-    "scaffold_hop": "/home/anonymous/chemiloop/dataset/250k_top_5/scaffold_hop_score.json",
-    "sitagliptin_mpo": "/home/anonymous/chemiloop/dataset/250k_top_5/sitagliptin_mpo_score.json",
-    "thiothixene_rediscovery": "/home/anonymous/chemiloop/dataset/250k_top_5/thiothixene_rediscovery_score.json",
-    "troglitazon_rediscovery": "/home/anonymous/chemiloop/dataset/250k_top_5/troglitazon_rediscovery_score.json",
-    "valsartan_smarts": "/home/anonymous/chemiloop/dataset/250k_top_5/valsartan_smarts_score.json",
-    "zaleplon_mpo": "/home/anonymous/chemiloop/dataset/250k_top_5/zaleplon_mpo_score.json",
-    "opv_pce_pcbm": "/home/anonymous/chemiloop/dataset/tartarus_top_5/opv_pce_pcbm_sas.json",
-    "opv_pce_pcdtbt": "/home/anonymous/chemiloop/dataset/tartarus_top_5/opv_pce_pcdtbt_sas.json",
-    "emitters": "/home/anonymous/chemiloop/dataset/tartarus_top_5/emitters_combined.json",
-
+    "albuterol_similarity": "/home/anonymous/mt_mol/dataset/250k_top_5/albuterol_similarity_score.json",
+    "isomers_c7h8n2o2": "/home/anonymous/mt_mol/dataset/250k_top_5/isomers_c7h8n2o2_score.json",
+    "isomers_c9h10n2o2pf2cl": "/home/anonymous/mt_mol/dataset/250k_top_5/isomers_c9h10n2o2pf2cl_score.json",
+    "amlodipine_mpo": "/home/anonymous/mt_mol/dataset/250k_top_5/amlodipine_mpo_score.json",
+    "celecoxib_rediscovery": "/home/anonymous/mt_mol/dataset/250k_top_5/celecoxib_rediscovery_score.json",
+    "deco_hop": "/home/anonymous/mt_mol/dataset/250k_top_5/deco_hop_score.json",
+    "drd2": "/home/anonymous/mt_mol/dataset/250k_top_5/drd2_score.json",
+    "fexofenadine_mpo": "/home/anonymous/mt_mol/dataset/250k_top_5/fexofenadine_mpo_score.json",
+    "gsk3b": "/home/anonymous/mt_mol/dataset/250k_top_5/gsk3b_score.json",
+    "jnk3": "/home/anonymous/mt_mol/dataset/250k_top_5/jnk3_score.json",
+    "median1": "/home/anonymous/mt_mol/dataset/250k_top_5/median1_score.json",
+    "median2": "/home/anonymous/mt_mol/dataset/250k_top_5/median2_score.json",
+    "mestranol_similarity": "/home/anonymous/mt_mol/dataset/250k_top_5/mestranol_similarity_score.json",
+    "osimertinib_mpo": "/home/anonymous/mt_mol/dataset/250k_top_5/osimertinib_mpo_score.json",
+    "perindopril_mpo": "/home/anonymous/mt_mol/dataset/250k_top_5/perindopril_mpo_score.json",
+    "qed": "/home/anonymous/mt_mol/dataset/250k_top_5/qed_score.json",
+    "ranolazine_mpo": "/home/anonymous/mt_mol/dataset/250k_top_5/ranolazine_mpo_score.json",
+    "scaffold_hop": "/home/anonymous/mt_mol/dataset/250k_top_5/scaffold_hop_score.json",
+    "sitagliptin_mpo": "/home/anonymous/mt_mol/dataset/250k_top_5/sitagliptin_mpo_score.json",
+    "thiothixene_rediscovery": "/home/anonymous/mt_mol/dataset/250k_top_5/thiothixene_rediscovery_score.json",
+    "troglitazon_rediscovery": "/home/anonymous/mt_mol/dataset/250k_top_5/troglitazon_rediscovery_score.json",
+    "valsartan_smarts": "/home/anonymous/mt_mol/dataset/250k_top_5/valsartan_smarts_score.json",
+    "zaleplon_mpo": "/home/anonymous/mt_mol/dataset/250k_top_5/zaleplon_mpo_score.json",
+    
 }
 
 # Mapping for scoring functions
@@ -58,9 +55,6 @@ TASK_TO_SCORING_FUNCTION = {
     "troglitazon_rediscovery": get_troglitazon_rediscovery_score,
     "valsartan_smarts": get_valsartan_smarts_score,
     "zaleplon_mpo": get_zaleplon_mpo_score,
-    "opv_pce_pcbm": get_opv_score,
-    "opv_pce_pcdtbt": get_opv_score,
-    "emitters": get_emitters_score,
 }
 
 # Mapping for scientist prompt functions
@@ -88,9 +82,6 @@ TASK_TO_SCIENTIST_PROMPT = {
     "troglitazon_rediscovery":task_prompts.troglitazon_rediscovery.get_scientist_prompt,
     "valsartan_smarts":task_prompts.valsartan_smarts.get_scientist_prompt,
     "zaleplon_mpo":task_prompts.zaleplon_mpo.get_scientist_prompt,
-    "opv_pce_pcbm":task_prompts.opv_pce_pcbm.get_scientist_prompt,
-    "opv_pce_pcdtbt":task_prompts.opv_pce_pcdtbt.get_scientist_prompt,
-    "emitters":task_prompts.emitters.get_scientist_prompt,
 }
 
 # Mapping for scientist prompt with reviewer
@@ -118,10 +109,6 @@ TASK_TO_SCIENTIST_PROMPT_WITH_REVIEW = {
     "troglitazon_rediscovery":task_prompts.troglitazon_rediscovery.get_scientist_prompt_with_review,
     "valsartan_smarts":task_prompts.valsartan_smarts.get_scientist_prompt_with_review,
     "zaleplon_mpo":task_prompts.zaleplon_mpo.get_scientist_prompt_with_review,
-    "opv_pce_pcbm":task_prompts.opv_pce_pcbm.get_scientist_prompt_with_review,
-    "opv_pce_pcdtbt":task_prompts.opv_pce_pcdtbt.get_scientist_prompt_with_review,
-    "emitters":task_prompts.emitters.get_scientist_prompt_with_review,
-
 }
 
 # Mapping for reviewer prompt
@@ -149,9 +136,6 @@ TASK_TO_REVIEWER_PROMPT = {
     "troglitazon_rediscovery":task_prompts.troglitazon_rediscovery.get_reviewer_prompt,
     "valsartan_smarts":task_prompts.valsartan_smarts.get_reviewer_prompt,
     "zaleplon_mpo":task_prompts.zaleplon_mpo.get_reviewer_prompt,
-    "opv_pce_pcbm":task_prompts.opv_pce_pcbm.get_reviewer_prompt,
-    "opv_pce_pcdtbt":task_prompts.opv_pce_pcdtbt.get_reviewer_prompt,
-    "emitters":task_prompts.emitters.get_reviewer_prompt,
 }
 
 
@@ -180,7 +164,4 @@ TASK_TO_SCIENTIST_PROMPT_WITH_DOUBLE_CHECKER = {
     "troglitazon_rediscovery":task_prompts.troglitazon_rediscovery.get_scientist_prompt_with_double_checker_review,
     "valsartan_smarts":task_prompts.valsartan_smarts.get_scientist_prompt_with_double_checker_review,
     "zaleplon_mpo":task_prompts.zaleplon_mpo.get_scientist_prompt_with_double_checker_review,
-    "opv_pce_pcbm":task_prompts.opv_pce_pcbm.get_scientist_prompt_with_double_checker_review,
-    "opv_pce_pcdtbt":task_prompts.opv_pce_pcdtbt.get_scientist_prompt_with_double_checker_review,
-    "emitters":task_prompts.emitters.get_scientist_prompt_with_double_checker_review,
 }

@@ -207,7 +207,7 @@ class MoleculeError(Exception):
     pass
 
 
-def run_pubchem_functions(function_names, smiles_list, utils_path="/home/anonymous/chemiloop/utils/tools.py"):
+def run_pubchem_functions(function_names, smiles_list, utils_path="/home/anonymous/mt_mol/utils/tools.py"):
     """
     Run specified functions on a list of SMILES strings and return a structured text summary.
 
@@ -296,7 +296,7 @@ def calculate_metrics(smiles_scores: List[Tuple[str, float]], iteration: int, ma
 
 def tool_electronic_topological_descriptors(state: GraphState) -> GraphState:
     """Node for selecting tools to use in the workflow"""
-    tool_path = "/home/anonymous/chemiloop/tool_jsons/Electronic_Topological_Descriptors.json"
+    tool_path = "/home/anonymous/mt_mol/tool_jsons/Electronic_Topological_Descriptors.json"
     
     try:
         with open(tool_path, "r") as tool_json:
@@ -389,7 +389,7 @@ Take a deep breath and think carefully before writing your answer.
 
 def tool_fragment_based_functional_groups(state: GraphState) -> GraphState:
     """Node for selecting tools to use in the workflow"""
-    tool_path = "/home/anonymous/chemiloop/tool_jsons/Fragment_Based_Functional_Groups.json"
+    tool_path = "/home/anonymous/mt_mol/tool_jsons/Fragment_Based_Functional_Groups.json"
     
     try:
         with open(tool_path, "r") as tool_json:
@@ -487,7 +487,7 @@ Take a deep breath and think carefully before writing your answer.
 
 def tool_other_descriptors(state: GraphState) -> GraphState:
     """Node for selecting tools to use in the workflow"""
-    tool_path = "/home/anonymous/chemiloop/tool_jsons/Other_Descriptors.json"
+    tool_path = "/home/anonymous/mt_mol/tool_jsons/Other_Descriptors.json"
     
     try:
         with open(tool_path, "r") as tool_json:
@@ -585,7 +585,7 @@ Take a deep breath and think carefully before writing your answer.
 
 def tool_structural_descriptors(state: GraphState) -> GraphState:
     """Node for selecting tools to use in the workflow"""
-    tool_path = "/home/anonymous/chemiloop/tool_jsons/Structural_Descriptors.json"
+    tool_path = "/home/anonymous/mt_mol/tool_jsons/Structural_Descriptors.json"
     
     try:
         with open(tool_path, "r") as tool_json:
@@ -680,7 +680,7 @@ Take a deep breath and think carefully before writing your answer.
 
 def tool_identifiers_and_representations(state: GraphState) -> GraphState:
     """Node for selecting tools to use in the workflow"""
-    tool_path = "/home/anonymous/chemiloop/tool_jsons/Identifiers_and_Representations.json"
+    tool_path = "/home/anonymous/mt_mol/tool_jsons/Identifiers_and_Representations.json"
     
     try:
         with open(tool_path, "r") as tool_json:
