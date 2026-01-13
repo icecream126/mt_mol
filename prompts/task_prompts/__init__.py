@@ -21,6 +21,3 @@ from . import thiothixene_rediscovery
 from . import troglitazon_rediscovery
 from . import valsartan_smarts
 from . import zaleplon_mpo
-from . import opv_pce_pcdtbt
-from . import opv_pce_pcbm
-from . import emitters
